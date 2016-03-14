@@ -4,6 +4,9 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>laferme.entity.Effacemoi</class>
     <class>laferme.entity.Utilisateur</class>
+    <class>laferme.entity.Ressource</class>
+    <class>laferme.entity.Fermier</class>
+    <class>laferme.entity.Chevre</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/LAFERME"/>
