@@ -1,0 +1,119 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 7 mars 2016, 14:14:14
+    Author     : admin
+*/
+
+body {
+    background-image: url('Image/voyage.jpeg');
+    background-size: 1800px;
+    background-repeat:no-repeat;
+}
+
+.titre{
+
+    font-weight: bold;
+    font-style: italic;
+    font-stretch: extra-condensed;
+    font-size: xx-large;
+    text-align: center;
+    background-color:  black;
+    background-size: 900px;
+    border-radius: 50%;
+
+    /*    border-width: 10px;*/
+    border-style: ridge;
+    color:white;
+
+
+}
+
+.bouton a {
+    display:block;
+    width:150px;
+    line-height:50px;
+    text-align:center;
+    vertical-align:middle;
+    background:url(Image/boutonnoir.png) no-repeat;
+    color:white;
+    text-decoration:none;
+}
+.bouton a:hover {
+    background:url(Image/boutonnoir2.png) no-repeat;
+}
+
+.menu{
+    color: darkgoldenrod;
+    font-style: italic;
+    font-stretch: extra-condensed;
+    font-size: large;
+    text-align: center;
+    float : left;
+    /*    border: 1px solid gray;
+        background-color: white;
+        position: relative;
+        right: 0px;
+        margin-right: 850px;*/
+}
+
+.pied{
+    color : midnightblue ;
+    font-size: small;
+    font-style: italic;
+    text-align: right;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+.contenu{
+    color: white;
+    font-size: x-large;
+    font-weight: bolder;
+    text-align: center;
+    /*background-image: url('Image/graffiti.jpg');*/
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 7px;
+    margin-left: -200px;  
+    position: absolute;
+    left: 50%;
+}
+
+a {
+    text-decoration: none; /* Les liens ne seront plus soulignés */
+    color: crimson; /* Les liens seront en rouge au lieu de bleu */
+    font-size:medium }
+
+a:hover {
+    background-color: #FFFF00; 
+    color: green;
+}
+
+a:active /* Quand le visiteur clique sur le lien */ {
+    background-color: #FFCC66;
+}
+
+.bouton2 {
+    width:110px;
+    cursor:pointer;
+    text-transform:capitalize;
+    border:none;
+    padding:6px 0 6px 0;
+    border-radius:75%;
+    border-bottom:7px solid #4753f3;
+    font:bold 13px Arial;
+    color:#555;
+    background:#fff;
+    box-shadow:2px 2px 3px #999;
+    border-top:2px solid #59cd27;
+    display: block;
+    margin : auto;
+}
+
+label{
+    color: white;
+}
