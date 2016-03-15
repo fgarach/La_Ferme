@@ -13,9 +13,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import laferme.enumeration.Nature;
+import laferme.enumeration.TypeEtat;
+import laferme.enumeration.TypeRessource;
 
 /**
  *
@@ -30,12 +33,21 @@ public class Ressource implements Serializable {
     private Long id;
     
     @Enumerated(EnumType.STRING)
-    private Nature nature;
+    private TypeRessource typeRessource;
     
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dateApparition;
+    private Date dateCreation;
     
-    private boolean occupe;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateCycle;
+    
+    @Enumerated(EnumType.STRING)
+    private TypeEtat typeEtat;
+    
+    @ManyToOne
+    @JoinColumn (name="UTIL_ID")
+    Utilisateur utilisateur;
+    
 
     public Long getId() {
         return id;
@@ -44,6 +56,60 @@ public class Ressource implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public TypeRessource getTypeRessource() {
+        return typeRessource;
+    }
+
+    public void setTypeRessource(TypeRessource typeRessource) {
+        this.typeRessource = typeRessource;
+    }
+
+    public Date getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
+    public Date getDateCycle() {
+        return dateCycle;
+    }
+
+    public void setDateCycle(Date dateCycle) {
+        this.dateCycle = dateCycle;
+    }
+
+    public TypeEtat getTypeEtat() {
+        return typeEtat;
+    }
+
+    public void setTypeEtat(TypeEtat typeEtat) {
+        this.typeEtat = typeEtat;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    public Ressource() {
+    }
+
+    public Ressource(Long id, TypeRessource typeRessource, Date dateCreation, Date dateCycle, TypeEtat typeEtat, Utilisateur utilisateur) {
+        this.id = id;
+        this.typeRessource = typeRessource;
+        this.dateCreation = dateCreation;
+        this.dateCycle = dateCycle;
+        this.typeEtat = typeEtat;
+        this.utilisateur = utilisateur;
+    }
+    
+    
 
     @Override
     public int hashCode() {

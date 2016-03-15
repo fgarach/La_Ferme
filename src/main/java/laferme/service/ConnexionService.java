@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package laferme.enumeration;
+package laferme.service;
 
 /**
  *
  * @author admin
  */
-public enum Nature {
-    CAROTTE,
-    BLE,
-    FROMAGE;
+public class ConnexionService {
     
 }

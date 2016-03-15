@@ -6,10 +6,13 @@
 package laferme.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -22,6 +25,14 @@ public class Utilisateur implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    private String email;
+    
+    private String mdp;
+    
+    
+    @OneToMany (mappedBy="utilisateur")
+    List<Ressource> ressources = new ArrayList();
 
     public Long getId() {
         return id;
@@ -30,6 +41,41 @@ public class Utilisateur implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getMdp() {
+        return mdp;
+    }
+
+    public void setMdp(String mdp) {
+        this.mdp = mdp;
+    }
+
+    public List<Ressource> getRessources() {
+        return ressources;
+    }
+
+    public void setRessources(List<Ressource> ressources) {
+        this.ressources = ressources;
+    }
+
+    public Utilisateur() {
+    }
+
+    public Utilisateur(Long id, String email, String mdp) {
+        this.id = id;
+        this.email = email;
+        this.mdp = mdp;
+    }
+    
+    
 
     @Override
     public int hashCode() {
