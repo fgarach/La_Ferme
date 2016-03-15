@@ -13,7 +13,7 @@
         <br>
     <c:if test="${sessionScope.email!=null}">
         <span style="float : left;"> ${sessionScope.email} </span>
-        <span style="float : right;"> <div class="bouton"><a href="deconnexion">Se deconnecter</a></div></span>
+        <span style="float : right;"> <a href="deconnexion">Se deconnecter</a></span>
     </c:if>
     <c:if test="${sessionScope.email==null}">
         <span style="float : left;"> <a href="login">Se connecter</a></span>
