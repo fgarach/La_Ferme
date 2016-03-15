@@ -12,24 +12,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import laferme.spring.AutowireServlet;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name = "HomeServlet", urlPatterns = {"/home"})
-public class HomeServlet extends AutowireServlet {
+@WebServlet(name = "StartGameServlet", urlPatterns = {"/start_game"})
+public class StartGameServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("_CSS.jsp").include(req, resp);  
-//        System.out.println("1111111111111111");
-        req.getRequestDispatcher("_HEADER.jsp").include(req, resp);  
-//        System.out.println("2222222222222222222");
-        req.getRequestDispatcher("_HOME.jsp").include(req, resp);
-        req.getRequestDispatcher("_FOOTER.jsp").include(req, resp);
+        
     }
 
     
+
 }

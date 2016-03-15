@@ -6,6 +6,7 @@
 package laferme.service;
 
 import java.io.Serializable;
+import java.util.List;
 import laferme.entity.Utilisateur;
 import org.springframework.data.repository.CrudRepository;
 
@@ -13,6 +14,7 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author admin
  */
-public interface UtilisateurCrudService extends CrudRepository<Utilisateur, Long>{
-    
+public interface UtilisateurCrudService extends CrudRepository<Utilisateur, Long> {
+
+    public Utilisateur findByEmail(String email);
 }
