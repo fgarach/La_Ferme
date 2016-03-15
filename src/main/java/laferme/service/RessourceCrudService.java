@@ -20,5 +20,7 @@ public interface RessourceCrudService extends CrudRepository<Ressource, Long>{
     public List<Ressource> findByTypeRessourceAndTypeEtat (TypeRessource tr, TypeEtat te);
     public List<Ressource> findByTypeEtat (TypeEtat te);
     public List<Ressource> findByTypeRessource (TypeRessource tr);
+    public Integer countByTypeRessource (TypeRessource tr);
+    public Integer countByTypeRessourceAndTypeEtat (TypeRessource tr, TypeEtat te);
     
 }

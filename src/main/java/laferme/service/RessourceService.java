@@ -26,7 +26,8 @@ public class RessourceService {
 
     public void planter(Ressource r) {
         r.setTypeEtat(TypeEtat.OCCUPE);
-        r.setDateCycle(Date.from(Instant.MIN)); //DATEASETER
+        r.setDateCycle(new Date());
+        ressourceCrudService.save(r);
     }
 
     public void nourrir(Ressource acteur, Ressource consommable) {
@@ -34,15 +35,8 @@ public class RessourceService {
         consommable.setTypeEtat(TypeEtat.MORT);
     }
 
-    public void mourir() {
+    public void mourir(Ressource r) {
 
-        List<Ressource> ressourcesMorte = ressourceCrudService.findByTypeEtat(TypeEtat.MORT);
-
-        for (Ressource ressource : ressourcesMorte) {
-            Utilisateur u = ressource.getUtilisateur();
-            ressourceCrudService.delete(ressource);
-            u.getRessources().remove(ressource);
-        }
-
+        r.setTypeEtat(TypeEtat.MORT);
     }
 }
