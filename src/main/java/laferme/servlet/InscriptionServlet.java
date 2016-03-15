@@ -54,7 +54,7 @@ public class InscriptionServlet extends AutowireServlet {
         } catch (UtilisateurDejaInscrit ex) {
             String information = "Vous êtes déjà inscrit";
             req.setAttribute("info", information);
-            req.getRequestDispatcher("login2").forward(req, resp);
+            req.getRequestDispatcher("login").forward(req, resp);
             return;
         }
     }
