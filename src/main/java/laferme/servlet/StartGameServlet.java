@@ -12,16 +12,26 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import laferme.service.InitialiserPlateformeService;
+import laferme.spring.AutowireServlet;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author admin
  */
 @WebServlet(name = "StartGameServlet", urlPatterns = {"/start_game"})
-public class StartGameServlet extends HttpServlet {
+public class StartGameServlet extends AutowireServlet {
 
+//    @Autowired
+//    private InitialiserPlateformeService initialiserService;
+    
+    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
+       // initialiserService.initialiser();
+       // resp.sendRedirect("plateforme");
         
     }
 

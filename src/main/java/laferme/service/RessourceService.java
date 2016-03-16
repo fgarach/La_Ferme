@@ -34,6 +34,7 @@ public class RessourceService {
         r.setTypeEtat(TypeEtat.OCCUPE);
         r.setDateLuneCycle(dateService.getLuneJeu());
         ressourceCrudService.save(r);
+        System.err.println("sa marcheeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
     }
 
     public void nourrir(Ressource acteur, String nourriture){

@@ -36,11 +36,12 @@ public class PlanterServlet extends AutowireServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        
         String type = req.getParameter("type");
         if (type.equals("carotte")) {
             List<Ressource> carottesDisponibles = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CAROTTE, TypeEtat.VIVANT);
             ressourceService.planter(carottesDisponibles.get(0));
+            
         }
         else if(type.equals("ble")){
             List<Ressource> blesDisponibles = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.VIVANT);

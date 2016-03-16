@@ -33,35 +33,34 @@ public class InitialiserPlateformeService {
 
     public void initialiser() {
 
-        Utilisateur u = new Utilisateur(1L, "test", "test");
-        utilisateurCrudService.save(u);
+        Utilisateur u = utilisateurCrudService.findOne(1L);
 
-        List<Ressource> l = (List<Ressource>) ressourceCrudService.findAll();
+        List<Ressource> l = (List<Ressource>) ressourceCrudService.findByUtilisateurId(u.getId());
+        ressourceCrudService.delete(l);
 
-        if (l.isEmpty()) {
-            for (int i = 0; i < Config.initialisationNbFermier; i++) {
-                Ressource r = new Ressource(null, TypeRessource.FERMIER, dateService.getLuneJeu(), null,null, TypeEtat.VIVANT, u);
-                ressourceCrudService.save(r);
-                u.getRessources().add(r);
-            }
-
-            for (int i = 0; i < Config.initialisationNbCarotte; i++) {
-                Ressource r = new Ressource(null, TypeRessource.CAROTTE, dateService.getLuneJeu(), null,null, TypeEtat.VIVANT, u);
-                ressourceCrudService.save(r);
-                u.getRessources().add(r);
-            }
-
-            for (int i = 0; i < Config.initialisationNbBle; i++) {
-                Ressource r = new Ressource(null, TypeRessource.BLE, dateService.getLuneJeu(), null, null, TypeEtat.VIVANT, u);
-                ressourceCrudService.save(r);
-                u.getRessources().add(r);
-            }
-
-            for (int i = 0; i < Config.initialisationNbChevre; i++) {
-                Ressource r = new Ressource(null, TypeRessource.CHEVRE, dateService.getLuneJeu(), dateService.getLuneJeu(),null, TypeEtat.VIVANT, u);
-                ressourceCrudService.save(r);
-                u.getRessources().add(r);
-            }
+        for (int i = 0; i < Config.initialisationNbFermier; i++) {
+            Ressource r = new Ressource(null, TypeRessource.FERMIER, dateService.getLuneJeu(), null, null, TypeEtat.VIVANT, u);
+            ressourceCrudService.save(r);
+            u.getRessources().add(r);
         }
+
+        for (int i = 0; i < Config.initialisationNbCarotte; i++) {
+            Ressource r = new Ressource(null, TypeRessource.CAROTTE, dateService.getLuneJeu(), null, null, TypeEtat.VIVANT, u);
+            ressourceCrudService.save(r);
+            u.getRessources().add(r);
+        }
+
+        for (int i = 0; i < Config.initialisationNbBle; i++) {
+            Ressource r = new Ressource(null, TypeRessource.BLE, dateService.getLuneJeu(), null, null, TypeEtat.VIVANT, u);
+            ressourceCrudService.save(r);
+            u.getRessources().add(r);
+        }
+
+        for (int i = 0; i < Config.initialisationNbChevre; i++) {
+            Ressource r = new Ressource(null, TypeRessource.CHEVRE, dateService.getLuneJeu(), dateService.getLuneJeu(), null, TypeEtat.VIVANT, u);
+            ressourceCrudService.save(r);
+            u.getRessources().add(r);
+        }
+
     }
 }

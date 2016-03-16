@@ -12,19 +12,26 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import laferme.service.InitialiserPlateformeService;
 import laferme.spring.AutowireServlet;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name = "DeconnexionServlet", urlPatterns = {"/deconnexion"})
-public class DeconnexionServlet extends AutowireServlet {
+@WebServlet(name = "StartServlet", urlPatterns = {"/start"})
+public class StartServlet extends AutowireServlet {
 
+    @Autowired
+    private InitialiserPlateformeService initialiserService;
+    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getSession().invalidate();
-        req.getRequestDispatcher("home").forward(req, resp);
-
+        initialiserService.initialiser();
+        System.out.println("rrrrrrrrrrrrrrrrrrrrrrrrr");
+        resp.sendRedirect("plateforme");
+        
     }
+
 }

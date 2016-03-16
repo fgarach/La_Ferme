@@ -31,8 +31,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 @WebServlet(name = "PlateformeServlet", urlPatterns = {"/plateforme"})
 public class PlateformeServlet extends AutowireServlet {
 
-    @Autowired
-    private InitialiserPlateformeService initialiserPlateformeService;
 
     @Autowired
     private RessourceCrudService ressourceCrudService;
@@ -42,8 +40,7 @@ public class PlateformeServlet extends AutowireServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //Utilisateur u= utilisateurCrudService.findOne(1L);
-        initialiserPlateformeService.initialiser();
+
 
         List<Ressource> fermiers = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.FERMIER, TypeEtat.VIVANT);
         //if (fermiers.isEmpty()) {
