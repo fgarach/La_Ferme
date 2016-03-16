@@ -34,12 +34,10 @@ public class Ressource implements Serializable {
     
     @Enumerated(EnumType.STRING)
     private TypeRessource typeRessource;
+   
+    private Integer dateLuneCreation;
     
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateCreation;
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateCycle;
+    private Integer dateLuneCycle;
     
     @Enumerated(EnumType.STRING)
     private TypeEtat typeEtat;
@@ -65,20 +63,20 @@ public class Ressource implements Serializable {
         this.typeRessource = typeRessource;
     }
 
-    public Date getDateCreation() {
-        return dateCreation;
+    public Integer getDateLuneCreation() {
+        return dateLuneCreation;
     }
 
-    public void setDateCreation(Date dateCreation) {
-        this.dateCreation = dateCreation;
+    public void setDateLuneCreation(Integer dateLuneCreation) {
+        this.dateLuneCreation = dateLuneCreation;
     }
 
-    public Date getDateCycle() {
-        return dateCycle;
+    public Integer getDateLuneCycle() {
+        return dateLuneCycle;
     }
 
-    public void setDateCycle(Date dateCycle) {
-        this.dateCycle = dateCycle;
+    public void setDateLuneCycle(Integer dateLuneCycle) {
+        this.dateLuneCycle = dateLuneCycle;
     }
 
     public TypeEtat getTypeEtat() {
@@ -100,11 +98,11 @@ public class Ressource implements Serializable {
     public Ressource() {
     }
 
-    public Ressource(Long id, TypeRessource typeRessource, Date dateCreation, Date dateCycle, TypeEtat typeEtat, Utilisateur utilisateur) {
+    public Ressource(Long id, TypeRessource typeRessource, Integer dateLuneCreation, Integer dateLuneCycle, TypeEtat typeEtat, Utilisateur utilisateur) {
         this.id = id;
         this.typeRessource = typeRessource;
-        this.dateCreation = dateCreation;
-        this.dateCycle = dateCycle;
+        this.dateLuneCreation = dateLuneCreation;
+        this.dateLuneCycle = dateLuneCycle;
         this.typeEtat = typeEtat;
         this.utilisateur = utilisateur;
     }

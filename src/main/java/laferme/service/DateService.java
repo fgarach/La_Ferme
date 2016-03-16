@@ -16,15 +16,24 @@ import org.springframework.stereotype.Service;
 @Service
 public class DateService {
 
-    public Date dateJeu = new Date();
+    private Integer luneJeu = 0;
 
-    public boolean dateExpiree(Ressource r,Date d) {
+    public Integer getLuneJeu() {
+        return luneJeu;
+    }
+
+    public void setLuneJeu(Integer luneJeu) {
+        this.luneJeu = luneJeu;
+    }
+
+  
+    public boolean dateExpiree(Ressource r,Integer luneR,Integer cycle) {
         boolean estExpiree = false;
-
-        if (d.after(dateJeu)) {
-            estExpiree = true;
+        if((luneJeu-luneR)>=cycle){
+            estExpiree=true;
         }
-        return true;
+
+        return estExpiree;
     }
 
 }

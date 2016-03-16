@@ -9,20 +9,37 @@
 <!DOCTYPE html>
 <div>
     <div style="float: left;display: inline;border:1px solid black;width:300px;height:700px">
-        nbCarotteDisponible : ${nbCarotte}<a href="planter"><input type="button" value="Planter"></a><br>
-        nbBleDisponible : ${nbBle}<input type="button" value="Planter"><br><br>
+        nbCarotteDisponible : ${nbCarotte}<a href="planter?type=carotte"><input type="button" value="Planter"></a><br>
+        nbBleDisponible : ${nbBle}<a href="planter?type=ble"><input type="button" value="Planter"></a><br><br>
         nbChevres: ${nbChevre}<br>
-        nbFromages: 0
+        nbFromages: ${nbFromage}
+        <br><br>
+        <a href="actualisation"><input type="button" value="Actualiser"></a>
 
-        
+
     </div>
     <div style="float: left;display: inline;border:1px solid black;width:1000px;height:700px">
-        
+
+        <c:if test="${!empty fermiers}">
+            <c:forEach items="${fermiers}" var="fermier">
+                1 fermier <br> 
+            </c:forEach>
+        </c:if>
         <c:if test="${!empty carottes}">
             <c:forEach items="${carottes}" var="carotte">
                 1 carotte <br> 
             </c:forEach>
         </c:if>
+        <c:if test="${!empty bles}">
+            <c:forEach items="${bles}" var="ble">
+                1 ble <br> 
+            </c:forEach>
+        </c:if>        
+        <c:if test="${nbChevre != 0}">
+            1 chevre <br> 
+        </c:if>
+
+
 
     </div>
     <div style="float: right;display: inline;border:1px solid black;width:200px;height:700px">

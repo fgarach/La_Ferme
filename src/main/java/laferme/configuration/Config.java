@@ -11,8 +11,9 @@ package laferme.configuration;
  */
 public class Config {
     
+    public static int initialisationNbFermier = 1;
     public static int initialisationNbCarotte = 3;
-    public static int initialisationNbBle = 1;
+    public static int initialisationNbBle = 3;
     public static int initialisationNbChevre = 1;
     
     public static int cyclePlantageCarotte = 6; //mois

@@ -41,20 +41,25 @@ public class PlateformeServlet extends AutowireServlet {
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Utilisateur u= utilisateurCrudService.findOne(1L);
-        initialiserPlateformeService.initialiser(u);
+        //Utilisateur u= utilisateurCrudService.findOne(1L);
+        initialiserPlateformeService.initialiser();
         
         Integer nbCarotte =ressourceCrudService.countByTypeRessourceAndTypeEtat(TypeRessource.CAROTTE, TypeEtat.VIVANT);
-        Integer nbBle =ressourceCrudService.countByTypeRessource(TypeRessource.BLE);
+        Integer nbBle =ressourceCrudService.countByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.VIVANT);
+        Integer nbFromage =ressourceCrudService.countByTypeRessourceAndTypeEtat(TypeRessource.FROMAGE, TypeEtat.VIVANT);
         Integer nbChevre =ressourceCrudService.countByTypeRessource(TypeRessource.CHEVRE);
         
         List<Ressource> carottePlantees =ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CAROTTE, TypeEtat.OCCUPE);
+        List<Ressource> blePlantes =ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.OCCUPE);
+        List<Ressource> fermiers =ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.FERMIER, TypeEtat.VIVANT);
         
-        System.out.println("taile : "+carottePlantees.size());
         req.setAttribute("nbCarotte", nbCarotte);
         req.setAttribute("nbBle", nbBle);
         req.setAttribute("nbChevre", nbChevre);
+        req.setAttribute("nbFromage", nbFromage);
         req.setAttribute("carottes", carottePlantees);
+        req.setAttribute("bles", blePlantes);
+        req.setAttribute("fermiers", fermiers);
 
         
         req.getRequestDispatcher("Plateforme.jsp").include(req, resp);

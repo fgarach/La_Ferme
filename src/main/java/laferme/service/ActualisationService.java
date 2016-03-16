@@ -29,16 +29,23 @@ public class ActualisationService {
 
     @Autowired
     private RessourceService ressourceService;
+    
 
     @Autowired
     private DateService dateService;
-
+    
    // @Scheduled(fixedDelay = 2000)
-    public void actualiser() {
+    public void actualiserLune(){
+        dateService.setLuneJeu(dateService.getLuneJeu()+1);
+        System.out.println(dateService.getLuneJeu());
 
+    }
+
+
+    public void actualiser() {
         misAJourCarotteDisponibleEtPlantee();
-//        misAJourBleDisponibleEtPlantee();
-//        misAJourFromageDisponible();
+        misAJourBleDisponibleEtPlantee();
+        misAJourFromageDisponible();
 //        misAJourCycleVieFermier();
 //        misAJourCycleVieChevre();
     }
@@ -46,9 +53,10 @@ public class ActualisationService {
     private void misAJourCarotteDisponibleEtPlantee() {
 
         List<Ressource> carottesPlantees = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CAROTTE, TypeEtat.OCCUPE);
+        System.out.println("taille : " + carottesPlantees.size());
 
         for (Ressource carottePlantee : carottesPlantees) {
-            if (dateService.dateExpiree(carottePlantee, carottePlantee.getDateCycle())) {
+            if (dateService.dateExpiree(carottePlantee, carottePlantee.getDateLuneCycle(),Config.cyclePlantageCarotte)) {
                 ressourceService.mourir(carottePlantee);
                 Utilisateur u = carottePlantee.getUtilisateur();
 
@@ -56,7 +64,7 @@ public class ActualisationService {
                 int nombreCarotteRecoltees = rand.nextInt(Config.nbRecolteCarotteMax - Config.nbRecolteCarotteMin + 1) + Config.nbRecolteCarotteMin;
 
                 for (int i = 0; i < nombreCarotteRecoltees; i++) {
-                    Ressource carotte = new Ressource(null, TypeRessource.CAROTTE, new Date(), null, TypeEtat.VIVANT, u);
+                    Ressource carotte = new Ressource(null, TypeRessource.CAROTTE, dateService.getLuneJeu(), null, TypeEtat.VIVANT, u);
                     ressourceCrudService.save(carotte);
                     u.getRessources().add(carotte);
                 }
@@ -69,7 +77,7 @@ public class ActualisationService {
         List<Ressource> blesPlantes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.OCCUPE);
 
         for (Ressource blePlante : blesPlantes) {
-            if (dateService.dateExpiree(blePlante, blePlante.getDateCycle())) {
+            if (dateService.dateExpiree(blePlante, blePlante.getDateLuneCycle(),Config.cyclePlantageBle)) {
                 ressourceService.mourir(blePlante);
                 Utilisateur u = blePlante.getUtilisateur();
 
@@ -77,7 +85,7 @@ public class ActualisationService {
                 int nombreBleRecoltes = rand.nextInt(Config.nbRecolteBleMax - Config.nbRecolteBleMin + 1) + Config.nbRecolteBleMin;
 
                 for (int i = 0; i < nombreBleRecoltes; i++) {
-                    Ressource ble = new Ressource(null, TypeRessource.BLE, new Date(), null, TypeEtat.VIVANT, u);
+                    Ressource ble = new Ressource(null, TypeRessource.BLE, dateService.getLuneJeu(), null, TypeEtat.VIVANT, u);
                     ressourceCrudService.save(ble);
                     u.getRessources().add(ble);
                 }
@@ -89,40 +97,43 @@ public class ActualisationService {
         List<Ressource> chevres = ressourceCrudService.findByTypeRessource(TypeRessource.CHEVRE);
 
         for (Ressource chevre : chevres) {
-            if (dateService.dateExpiree(chevre, chevre.getDateCycle())) {
+            if (dateService.dateExpiree(chevre, chevre.getDateLuneCycle(),Config.cycleCreationFromage)) {
                 Utilisateur u = chevre.getUtilisateur();
-                Ressource fromage = new Ressource(null, TypeRessource.FROMAGE, new Date(), null, TypeEtat.VIVANT, u);
+                Ressource fromage = new Ressource(null, TypeRessource.FROMAGE, dateService.getLuneJeu(),null, TypeEtat.VIVANT, u);
+                ressourceCrudService.save(fromage);
+                chevre.setDateLuneCycle(dateService.getLuneJeu());
+                ressourceCrudService.save(chevre);
             }
         }
     }
-
-    private void misAJourCycleVieFermier() {
-        List<Ressource> fermiers = ressourceCrudService.findByTypeRessource(TypeRessource.FERMIER);
-
-        for (Ressource fermier : fermiers) {
-            if (dateService.dateExpiree(fermier, fermier.getDateCreation())) {
-                fermier.setTypeEtat(TypeEtat.MORT);
-            }
-        }
-    }
-
-    private void misAJourCycleVieChevre() {
-        List<Ressource> chevres = ressourceCrudService.findByTypeRessource(TypeRessource.CHEVRE);
-
-        for (Ressource chevre : chevres) {
-            if (dateService.dateExpiree(chevre, chevre.getDateCreation())) {
-                chevre.setTypeEtat(TypeEtat.MORT);
-            }
-        }
-    }
-
-    private void supprimerRessourceMorte() {
-        List<Ressource> ressourcesMorte = ressourceCrudService.findByTypeEtat(TypeEtat.MORT);
-
-        for (Ressource ressource : ressourcesMorte) {
-            Utilisateur u = ressource.getUtilisateur();
-            ressourceCrudService.delete(ressource);
-            u.getRessources().remove(ressource);
-        }
-    }
+//
+//    private void misAJourCycleVieFermier() {
+//        List<Ressource> fermiers = ressourceCrudService.findByTypeRessource(TypeRessource.FERMIER);
+//
+//        for (Ressource fermier : fermiers) {
+//            if (dateService.dateExpiree(fermier, fermier.getDateLuneCreation())) {
+//                fermier.setTypeEtat(TypeEtat.MORT);
+//            }
+//        }
+//    }
+//
+//    private void misAJourCycleVieChevre() {
+//        List<Ressource> chevres = ressourceCrudService.findByTypeRessource(TypeRessource.CHEVRE);
+//
+//        for (Ressource chevre : chevres) {
+//            if (dateService.dateExpiree(chevre, chevre.getDateLuneCreation())) {
+//                chevre.setTypeEtat(TypeEtat.MORT);
+//            }
+//        }
+//    }
+//
+//    private void supprimerRessourceMorte() {
+//        List<Ressource> ressourcesMorte = ressourceCrudService.findByTypeEtat(TypeEtat.MORT);
+//
+//        for (Ressource ressource : ressourcesMorte) {
+//            Utilisateur u = ressource.getUtilisateur();
+//            ressourceCrudService.delete(ressource);
+//            u.getRessources().remove(ressource);
+//        }
+//    }
 }

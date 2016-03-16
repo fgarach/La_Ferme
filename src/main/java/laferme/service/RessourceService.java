@@ -23,20 +23,25 @@ public class RessourceService {
 
     @Autowired
     RessourceCrudService ressourceCrudService;
+    
+    @Autowired
+    private DateService dateService;
 
     public void planter(Ressource r) {
         r.setTypeEtat(TypeEtat.OCCUPE);
-        r.setDateCycle(new Date());
+        r.setDateLuneCycle(dateService.getLuneJeu());
         ressourceCrudService.save(r);
     }
 
     public void nourrir(Ressource acteur, Ressource consommable) {
-        acteur.setDateCreation(Date.from(Instant.MIN));//DATEASETER
+        //acteur.setDateCreation(Date.from(Instant.MIN));//DATEASETER
         consommable.setTypeEtat(TypeEtat.MORT);
+        ressourceCrudService.save(consommable);
     }
 
     public void mourir(Ressource r) {
 
         r.setTypeEtat(TypeEtat.MORT);
+        ressourceCrudService.save(r);
     }
 }

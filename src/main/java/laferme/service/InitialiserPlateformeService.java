@@ -25,26 +25,40 @@ public class InitialiserPlateformeService {
     @Autowired
     private RessourceCrudService ressourceCrudService;
 
-    public void initialiser(Utilisateur u) {
+    @Autowired
+    private UtilisateurCrudService utilisateurCrudService;
+
+    @Autowired
+    private DateService dateService;
+
+    public void initialiser() {
+
+        Utilisateur u = new Utilisateur(1L, "test", "test");
+        utilisateurCrudService.save(u);
 
         List<Ressource> l = (List<Ressource>) ressourceCrudService.findAll();
-       
+
         if (l.isEmpty()) {
-                 System.out.println("initialiser");
+            for (int i = 0; i < Config.initialisationNbFermier; i++) {
+                Ressource r = new Ressource(null, TypeRessource.FERMIER, dateService.getLuneJeu(), null, TypeEtat.VIVANT, u);
+                ressourceCrudService.save(r);
+                u.getRessources().add(r);
+            }
+
             for (int i = 0; i < Config.initialisationNbCarotte; i++) {
-                Ressource r = new Ressource(null, TypeRessource.CAROTTE, new Date(), null, TypeEtat.VIVANT, u);
+                Ressource r = new Ressource(null, TypeRessource.CAROTTE, dateService.getLuneJeu(), null, TypeEtat.VIVANT, u);
                 ressourceCrudService.save(r);
                 u.getRessources().add(r);
             }
 
             for (int i = 0; i < Config.initialisationNbBle; i++) {
-                Ressource r = new Ressource(null, TypeRessource.BLE, new Date(), null, TypeEtat.VIVANT, u);
+                Ressource r = new Ressource(null, TypeRessource.BLE, dateService.getLuneJeu(), null, TypeEtat.VIVANT, u);
                 ressourceCrudService.save(r);
                 u.getRessources().add(r);
             }
 
             for (int i = 0; i < Config.initialisationNbChevre; i++) {
-                Ressource r = new Ressource(null, TypeRessource.CHEVRE, new Date(), null, TypeEtat.VIVANT, u);
+                Ressource r = new Ressource(null, TypeRessource.CHEVRE, dateService.getLuneJeu(), dateService.getLuneJeu(), TypeEtat.VIVANT, u);
                 ressourceCrudService.save(r);
                 u.getRessources().add(r);
             }
