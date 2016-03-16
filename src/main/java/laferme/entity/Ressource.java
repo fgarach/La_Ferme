@@ -39,6 +39,8 @@ public class Ressource implements Serializable {
     
     private Integer dateLuneCycle;
     
+    private Integer dateLuneCycleEnceinte;
+    
     @Enumerated(EnumType.STRING)
     private TypeEtat typeEtat;
     
@@ -95,14 +97,24 @@ public class Ressource implements Serializable {
         this.utilisateur = utilisateur;
     }
 
+    public Integer getDateLuneCycleEnceinte() {
+        return dateLuneCycleEnceinte;
+    }
+
+    public void setDateLuneCycleEnceinte(Integer dateLuneCycleEnceinte) {
+        this.dateLuneCycleEnceinte = dateLuneCycleEnceinte;
+    }
+
+
     public Ressource() {
     }
 
-    public Ressource(Long id, TypeRessource typeRessource, Integer dateLuneCreation, Integer dateLuneCycle, TypeEtat typeEtat, Utilisateur utilisateur) {
+    public Ressource(Long id, TypeRessource typeRessource, Integer dateLuneCreation, Integer dateLuneCycle, Integer dateLuneCycleEnceinte, TypeEtat typeEtat, Utilisateur utilisateur) {
         this.id = id;
         this.typeRessource = typeRessource;
         this.dateLuneCreation = dateLuneCreation;
         this.dateLuneCycle = dateLuneCycle;
+        this.dateLuneCycleEnceinte = dateLuneCycleEnceinte;
         this.typeEtat = typeEtat;
         this.utilisateur = utilisateur;
     }

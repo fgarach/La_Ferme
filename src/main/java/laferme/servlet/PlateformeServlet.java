@@ -32,43 +32,52 @@ public class PlateformeServlet extends AutowireServlet {
 
     @Autowired
     private InitialiserPlateformeService initialiserPlateformeService;
-    
+
     @Autowired
     private RessourceCrudService ressourceCrudService;
-    
+
     @Autowired
     private UtilisateurCrudService utilisateurCrudService;
-    
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //Utilisateur u= utilisateurCrudService.findOne(1L);
         initialiserPlateformeService.initialiser();
-        
-        Integer nbCarotte =ressourceCrudService.countByTypeRessourceAndTypeEtat(TypeRessource.CAROTTE, TypeEtat.VIVANT);
-        Integer nbBle =ressourceCrudService.countByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.VIVANT);
-        Integer nbFromage =ressourceCrudService.countByTypeRessourceAndTypeEtat(TypeRessource.FROMAGE, TypeEtat.VIVANT);
-        Integer nbChevre =ressourceCrudService.countByTypeRessource(TypeRessource.CHEVRE);
-        
-        List<Ressource> carottePlantees =ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CAROTTE, TypeEtat.OCCUPE);
-        List<Ressource> blePlantes =ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.OCCUPE);
-        List<Ressource> fermiers =ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.FERMIER, TypeEtat.VIVANT);
-        
-        req.setAttribute("nbCarotte", nbCarotte);
-        req.setAttribute("nbBle", nbBle);
-        req.setAttribute("nbChevre", nbChevre);
-        req.setAttribute("nbFromage", nbFromage);
-        req.setAttribute("carottes", carottePlantees);
-        req.setAttribute("bles", blePlantes);
-        req.setAttribute("fermiers", fermiers);
 
-        
-        req.getRequestDispatcher("Plateforme.jsp").include(req, resp);
-        
-        
-        
-        
-        
-        
+        List<Ressource> fermiers = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.FERMIER, TypeEtat.VIVANT);
+        //if (fermiers.isEmpty()) {
+        if (false) {
+              //interface, vous avez perdu
+        } 
+        else {
+
+            Integer nbCarotte = ressourceCrudService.countByTypeRessourceAndTypeEtat(TypeRessource.CAROTTE, TypeEtat.VIVANT);
+            Integer nbBle = ressourceCrudService.countByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.VIVANT);
+            Integer nbFromage = ressourceCrudService.countByTypeRessourceAndTypeEtat(TypeRessource.FROMAGE, TypeEtat.VIVANT);
+
+            List<Ressource> carottePlantees = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CAROTTE, TypeEtat.OCCUPE);
+            List<Ressource> blePlantes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.OCCUPE);
+
+            List<Ressource> chevresNonEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.VIVANT);
+            List<Ressource> chevresEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.OCCUPE);
+
+            Boolean aNourrir = false;
+            
+            req.setAttribute("nbCarotte", nbCarotte);
+            req.setAttribute("nbBle", nbBle);
+            req.setAttribute("nbFromage", nbFromage);
+            req.setAttribute("carottes", carottePlantees);
+            req.setAttribute("bles", blePlantes);
+            req.setAttribute("fermiers", fermiers);
+            req.setAttribute("chevresNonEnceintes", chevresNonEnceintes);
+            req.setAttribute("chevresEnceintes", chevresEnceintes);
+            
+           
+
+            req.getRequestDispatcher("Plateforme.jsp").include(req, resp);
+
+        }
+
     }
 
 }
