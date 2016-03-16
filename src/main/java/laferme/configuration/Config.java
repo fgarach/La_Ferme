@@ -37,4 +37,5 @@ public class Config {
     public static int nourrirFermierChevre = 1;
     
      public static int nourrirChevreBle = 1;
+     public static int nourrirChevreCarotte = 1;
 }

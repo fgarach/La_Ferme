@@ -32,18 +32,21 @@ public class NourrirServlet extends AutowireServlet {
     private RessourceService ressourceService;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String type = req.getParameter("type");
+        String typeRessource = req.getParameter("nourriture");
         if (type.equals("fermier")) {
 
             Long idFermier = Long.parseLong(req.getParameter("idFermier"));
             Ressource fermier = ressourceCrudService.findOne(idFermier);
-            ressourceService.nourrir(fermier, null);
+            
+            
+            ressourceService.nourrir(fermier, typeRessource);
 
         } else if (type.equals("chevre")) {
             Long idChevre = Long.parseLong(req.getParameter("idChevre"));
             Ressource chevre = ressourceCrudService.findOne(idChevre);
-            ressourceService.nourrir(chevre, null);
+            ressourceService.nourrir(chevre, typeRessource);
         }
         resp.sendRedirect("plateforme");
     }
