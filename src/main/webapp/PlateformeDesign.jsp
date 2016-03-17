@@ -14,9 +14,15 @@
         <img src=Style/Image/ferme/fromage.png alt="Fromage" border=3 align=middle> x ${fromagesDispo.size()}
         <br><br>
         <div class="bouton"><a href="actualisation">Actualiser</a></div>
-
-
     </div>
+        
+<!--     <div class="fonctionjeu">
+         <div class="bouton"><a href=""> echanger </a></div>
+         <div class="bouton"><a href=""> voir classement </a></div>
+
+    </div>    
+        -->
+        
     <div style="float: left;display: inline;border:1px solid black;width:1000px;height:700px">
 
         <c:if test="${!empty fermiers}">
@@ -29,30 +35,30 @@
         </c:if>
         <div class="main">
             <div class="potager">
-                <c:if test="${!empty carottes}">
-                    <c:if test="${carottes.size()<=5}">
-                        <c:forEach items="${carottes}" var="carotte">
+                <c:if test="${!empty carottesPlantees}">
+                    <c:if test="${carottesPlantees.size()<=5}">
+                        <c:forEach items="${carottesPlantees}" var="carotte">
                             <img src=Style/Image/ferme/petitecarotte.png alt="Carotte" border=3 align=middle>
                         </c:forEach>
                     </c:if>
-                    <c:if test="${carottes.size()>5}">
-                        <img src=Style/Image/ferme/petitble.png alt="Ble" border=3 align=middle>
-                        <img src=Style/Image/ferme/petitble.png alt="Ble" border=3 align=middle>
-                        <img src=Style/Image/ferme/petitble.png alt="Ble" border=3 align=middle>
-                        <img src=Style/Image/ferme/petitble.png alt="Ble" border=3 align=middle>
-                        <img src=Style/Image/ferme/petitble.png alt="Ble" border=3 align=middle>
+                    <c:if test="${carottesPlantees.size()>5}">
+                        <img src=Style/Image/ferme/petitecarotte.png alt="Carotte" border=3 align=middle>
+                        <img src=Style/Image/ferme/petitecarotte.png alt="Carotte" border=3 align=middle>
+                        <img src=Style/Image/ferme/petitecarotte.png alt="Carotte" border=3 align=middle>
+                        <img src=Style/Image/ferme/petitecarotte.png alt="Carotte" border=3 align=middle>
+                        <img src=Style/Image/ferme/petitecarotte.png alt="Carotte" border=3 align=middle>
                         ....
                     </c:if>
-                    (${carottes.size()})
+                    (${carottesPlantees.size()})
                     <br>
                 </c:if>
-                <c:if test="${!empty bles}">
-                    <c:if test="${bles.size()<=5}">
-                        <c:forEach items="${bles}" var="ble">
+                <c:if test="${!empty blesPlantes}">
+                    <c:if test="${blesPlantes.size()<=5}">
+                        <c:forEach items="${blesPlantes}" var="ble">
                             <img src=Style/Image/ferme/petitble.png alt="Ble" border=3 align=middle>
                         </c:forEach>
                     </c:if>
-                    <c:if test="${bles.size()>5}">
+                    <c:if test="${blesPlantes.size()>5}">
                         <img src=Style/Image/ferme/petitble.png alt="Ble" border=3 align=middle>
                         <img src=Style/Image/ferme/petitble.png alt="Ble" border=3 align=middle>
                         <img src=Style/Image/ferme/petitble.png alt="Ble" border=3 align=middle>
@@ -60,14 +66,13 @@
                         <img src=Style/Image/ferme/petitble.png alt="Ble" border=3 align=middle>
                         ....
                     </c:if>
-                    (${bles.size()})
+                    (${blesPlantes.size()})
                     <br>
                 </c:if>
             </div>
             <div class="enclos">
                 
                 <c:if test="${empty chevresNonEnceintes}">
-                    viiide
                 </c:if>
 
                 <c:if test="${!empty chevresNonEnceintes}">
@@ -85,12 +90,10 @@
 
                 <c:if test="${!empty chevresEnceintes}">
                     <div>
-                        chevres enceintes************************<br>
                         <c:forEach items="${chevresEnceintes}" var="chevre" varStatus="loop">
                             <c:if test="${loop.index%2==0}">
                                 <img src=Style/Image/ferme/chevreamour.png alt="ChevreCouple" border=3 align=middle>
                             </c:if>
-                            <!--                     bouton nourrir !   -->
                             <c:if test="${blesDispo.size()>=nourrirChevreBle || CarottesDispo.size()>=nourrirChevreCarotte}">
                                 <form method="post" action="nourrir">
                                     <c:if test="${blesDispo.size()>=nourrirChevreBle}">
@@ -102,7 +105,6 @@
                                     <input type="hidden" name="type" value="chevre">
                                     <input type="hidden" name="idChevre" value="${chevre.getId()}"><br>
                                     <input type="submit" value="Nourrir">
-
                                 </form>
                             </c:if>
                         </c:forEach>
