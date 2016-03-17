@@ -71,8 +71,12 @@ public class PlateformeServlet extends AutowireServlet {
             req.setAttribute("nourrirFermierCarotte", Config.nourrirFermierCarotte);
             req.setAttribute("nourrirFermierFromage", Config.nourrirFermierFromage);
             req.setAttribute("nourrirFermierBle", Config.nourrirFermierBle);
+            req.setAttribute("tauxEchangeChevre", Config.tauxEchangeChevre);
+            req.setAttribute("tauxEchangeCarotte", Config.tauxEchangeCarotte);
+            req.setAttribute("tauxEchangeBle", Config.tauxEchangeBle);
 
-            
+            String option = req.getParameter("option");
+
             req.getRequestDispatcher("_CSS.jsp").include(req, resp);
             req.getRequestDispatcher("_HEADER.jsp").include(req, resp);
             req.getRequestDispatcher("_OPTIONJEU.jsp").include(req, resp);

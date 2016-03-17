@@ -94,7 +94,7 @@
                             <c:if test="${loop.index%2==0}">
                                 <img src=Style/Image/ferme/chevreamour.png alt="ChevreCouple" border=3 align=middle>
                             </c:if>
-                            <c:if test="${blesDispo.size()>=nourrirChevreBle || CarottesDispo.size()>=nourrirChevreCarotte}">
+                            <c:if test="${blesDispo.size()>=nourrirChevreBle || carottesDispo.size()>=nourrirChevreCarotte}">
                                 <form method="post" action="nourrir">
                                     <c:if test="${blesDispo.size()>=nourrirChevreBle}">
                                         <input type="radio" name="nourriture" value="ble">1 ble
