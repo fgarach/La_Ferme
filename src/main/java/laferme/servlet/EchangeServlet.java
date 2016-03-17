@@ -12,13 +12,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import laferme.entity.Utilisateur;
+import laferme.enumeration.TypeRessource;
+import laferme.service.RessourceService;
+import laferme.service.UtilisateurCrudService;
+import laferme.spring.AutowireServlet;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author admin
  */
 @WebServlet(name = "EchangeServlet", urlPatterns = {"/echange"})
-public class EchangeServlet extends HttpServlet {
+public class EchangeServlet extends AutowireServlet {
+    
+    @Autowired
+    RessourceService ressourceService;
+    
+    @Autowired
+    UtilisateurCrudService utilisateurCrudService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,6 +41,13 @@ public class EchangeServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
+        String email = (String) req.getSession().getAttribute("email");
+        Utilisateur u = utilisateurCrudService.findByEmail(email);
+        String ressourcePossedees = req.getParameter("ressechange");
+        String ressourceVoulues = req.getParameter("resscontre");
+        ressourceService.echange(ressourcePossedees, ressourceVoulues, u);
+        resp.sendRedirect("plateforme");
         
     }
     

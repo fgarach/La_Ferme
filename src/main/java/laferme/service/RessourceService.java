@@ -29,9 +29,10 @@ public class RessourceService {
     RessourceCrudService ressourceCrudService;
 
     @Autowired
+    UtilisateurCrudService utilisateurCrudService;
+
+    @Autowired
     private DateService dateService;
-    
-    
 
     public void planter(Ressource r) {
         r.setTypeEtat(TypeEtat.OCCUPE);
@@ -40,7 +41,7 @@ public class RessourceService {
         System.err.println("sa marcheeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
     }
 
-    public void nourrir(Ressource acteur, String nourriture){
+    public void nourrir(Ressource acteur, String nourriture) {
 
         if (acteur.getTypeRessource().equals(TypeRessource.FERMIER)) {
             switch (nourriture) {
@@ -132,4 +133,64 @@ public class RessourceService {
         r.setTypeEtat(TypeEtat.MORT);
         ressourceCrudService.save(r);
     }
+
+    public void echange(String ressourceDonnees, String ressourceVoulues, Utilisateur u) {
+
+        if (ressourceDonnees.equals("chevre")) {
+            List<Ressource> chevres = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.VIVANT);
+            for (int i = 0; i < Config.tauxEchangeChevre; i++) {
+                chevres.get(i).setTypeEtat(TypeEtat.MORT);
+                ressourceCrudService.save(chevres.get(i));
+            }
+        }
+
+        if (ressourceDonnees.equals("ble")) {
+
+            List<Ressource> bles = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.VIVANT);
+            for (int i = 0; i < Config.tauxEchangeBle; i++) {
+                bles.get(i).setTypeEtat(TypeEtat.MORT);
+                ressourceCrudService.save(bles.get(i));
+            }
+        }
+
+        if (ressourceDonnees.equals("carotte")) {
+
+            List<Ressource> carottes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CAROTTE, TypeEtat.VIVANT);
+            for (int i = 0; i < Config.tauxEchangeCarotte; i++) {
+                carottes.get(i).setTypeEtat(TypeEtat.MORT);
+                ressourceCrudService.save(carottes.get(i));
+            }
+        }
+
+        if (ressourceVoulues.equals("chevre")) {
+
+            for (int i = 0; i < Config.tauxEchangeChevre; i++) {
+                Ressource r = new Ressource(null, TypeRessource.CHEVRE, dateService.getLuneJeu(), dateService.getLuneJeu(), null, TypeEtat.VIVANT, u);
+                ressourceCrudService.save(r);
+                u.getRessources().add(r);
+
+            }
+        }
+        
+        if (ressourceVoulues.equals("ble")) {
+
+            for (int i = 0; i < Config.tauxEchangeBle; i++) {
+                Ressource r = new Ressource(null, TypeRessource.BLE, dateService.getLuneJeu(), null, null, TypeEtat.VIVANT, u);
+                ressourceCrudService.save(r);
+                u.getRessources().add(r);
+
+            }
+        }
+        if (ressourceVoulues.equals("carotte")) {
+
+            for (int i = 0; i < Config.tauxEchangeCarotte; i++) {
+                Ressource r = new Ressource(null, TypeRessource.CAROTTE, dateService.getLuneJeu(), null, null, TypeEtat.VIVANT, u);
+                ressourceCrudService.save(r);
+                u.getRessources().add(r);
+
+            }
+        }
+
+    }
+
 }
