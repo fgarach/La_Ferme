@@ -135,7 +135,7 @@
                                 </c:if>
 
                                 <c:if test="${chevresNonEnceintes.size()>=2}">
-                                    <a href="accoupler_chevres"><input type="button" value="Accoupler 2 chevres"></a>
+                                    <br><a href="accoupler_chevres"><input type="button" value="Accoupler 2 chevres"></a>
                                     </c:if>
                             </div>
                         </c:if>    

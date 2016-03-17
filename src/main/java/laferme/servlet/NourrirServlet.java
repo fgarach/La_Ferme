@@ -52,7 +52,7 @@ public class NourrirServlet extends AutowireServlet {
             Long idFermier = Long.parseLong(req.getParameter("idFermier"));
             Ressource fermier = ressourceCrudService.findOne(idFermier);
 
-            ressourceService.nourrir(fermier, typeRessource);
+            ressourceService.nourrir(fermier, typeRessource,u);
 
         } else if (type.equals("chevre")) {
             List<Ressource> chevres =null;
@@ -63,7 +63,7 @@ public class NourrirServlet extends AutowireServlet {
                 chevres = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CHEVRE, TypeEtat.OCCUPE,u.getId());
             }
             for (Ressource chevre : chevres) {
-                ressourceService.nourrir(chevre, typeRessource);
+                ressourceService.nourrir(chevre, typeRessource,u);
             }
         }
         resp.sendRedirect("plateforme");

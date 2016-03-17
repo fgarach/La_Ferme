@@ -27,18 +27,18 @@ public class StartServlet extends AutowireServlet {
 
     @Autowired
     private InitialiserPlateformeService initialiserService;
-    
+
     @Autowired
     private UtilisateurCrudService utilisateurService;
-    
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getSession().getAttribute("email").toString();
         Utilisateur u = utilisateurService.findByEmail(email);
-        
         initialiserService.initialiser(u);
-        resp.sendRedirect("plateforme");
         
+        resp.sendRedirect("plateforme");
+
     }
 
 }

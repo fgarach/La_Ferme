@@ -41,12 +41,14 @@ public class RessourceService {
         
     }
 
-    public void nourrir(Ressource acteur, String nourriture) {
+    public void nourrir(Ressource acteur, String nourriture,Utilisateur u) {
 
+        
+        
         if (acteur.getTypeRessource().equals(TypeRessource.FERMIER)) {
             switch (nourriture) {
                 case "ble":
-                    List<Ressource> bles = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.VIVANT);
+                    List<Ressource> bles = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.BLE, TypeEtat.VIVANT,u.getId());
 
                     acteur.setDateLuneCreation(dateService.getLuneJeu());
                     ressourceCrudService.save(acteur);
@@ -58,7 +60,7 @@ public class RessourceService {
                     break;
 
                 case "carotte":
-                    List<Ressource> carottes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CAROTTE, TypeEtat.VIVANT);
+                    List<Ressource> carottes = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CAROTTE, TypeEtat.VIVANT,u.getId());
 
                     acteur.setDateLuneCreation(dateService.getLuneJeu());
                     ressourceCrudService.save(acteur);
@@ -70,7 +72,7 @@ public class RessourceService {
                     break;
 
                 case "fromage":
-                    List<Ressource> fromages = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.FROMAGE, TypeEtat.VIVANT);
+                    List<Ressource> fromages = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.FROMAGE, TypeEtat.VIVANT,u.getId());
 
                     acteur.setDateLuneCreation(dateService.getLuneJeu());
                     ressourceCrudService.save(acteur);
@@ -82,7 +84,7 @@ public class RessourceService {
                     break;
 
                 case "chevre":
-                    List<Ressource> chevres = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.VIVANT);
+                    List<Ressource> chevres = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CHEVRE, TypeEtat.VIVANT,u.getId());
 
                     acteur.setDateLuneCreation(dateService.getLuneJeu());
                     ressourceCrudService.save(acteur);
@@ -101,7 +103,7 @@ public class RessourceService {
 
             switch (nourriture) {
                 case "ble":
-                    List<Ressource> bles = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.VIVANT);
+                    List<Ressource> bles = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.BLE, TypeEtat.VIVANT,u.getId());
 
                     acteur.setDateLuneCreation(dateService.getLuneJeu());
                     ressourceCrudService.save(acteur);
@@ -112,7 +114,7 @@ public class RessourceService {
 
                     break;
                 case "carotte":
-                    List<Ressource> carottes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CAROTTE, TypeEtat.VIVANT);
+                    List<Ressource> carottes = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CAROTTE, TypeEtat.VIVANT,u.getId());
 
                     acteur.setDateLuneCreation(dateService.getLuneJeu());
                     ressourceCrudService.save(acteur);
@@ -137,7 +139,7 @@ public class RessourceService {
     public void echange(String ressourceDonnees, String ressourceVoulues, Utilisateur u) {
 
         if (ressourceDonnees.equals("chevre")) {
-            List<Ressource> chevres = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.VIVANT);
+            List<Ressource> chevres = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CHEVRE, TypeEtat.VIVANT,u.getId());
             for (int i = 0; i < Config.tauxEchangeChevre; i++) {
                 chevres.get(i).setTypeEtat(TypeEtat.MORT);
                 ressourceCrudService.save(chevres.get(i));
@@ -146,7 +148,7 @@ public class RessourceService {
 
         if (ressourceDonnees.equals("ble")) {
 
-            List<Ressource> bles = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.VIVANT);
+            List<Ressource> bles = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.BLE, TypeEtat.VIVANT,u.getId());
             for (int i = 0; i < Config.tauxEchangeBle; i++) {
                 bles.get(i).setTypeEtat(TypeEtat.MORT);
                 ressourceCrudService.save(bles.get(i));
@@ -155,7 +157,7 @@ public class RessourceService {
 
         if (ressourceDonnees.equals("carotte")) {
 
-            List<Ressource> carottes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CAROTTE, TypeEtat.VIVANT);
+            List<Ressource> carottes = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CAROTTE, TypeEtat.VIVANT,u.getId());
             for (int i = 0; i < Config.tauxEchangeCarotte; i++) {
                 carottes.get(i).setTypeEtat(TypeEtat.MORT);
                 ressourceCrudService.save(carottes.get(i));
