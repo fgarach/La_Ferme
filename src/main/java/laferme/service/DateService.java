@@ -29,7 +29,7 @@ public class DateService {
   
     public boolean dateExpiree(Ressource r,Integer luneR,Integer cycle) {
         boolean estExpiree = false;
-        if((luneJeu-luneR)>=cycle){
+        if((luneJeu-luneR)>=(cycle*30)){
             estExpiree=true;
         }
 

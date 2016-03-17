@@ -29,7 +29,6 @@ public class StartServlet extends AutowireServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         initialiserService.initialiser();
-        System.out.println("rrrrrrrrrrrrrrrrrrrrrrrrr");
         resp.sendRedirect("plateforme");
         
     }

@@ -33,7 +33,7 @@ public class ActualisationService {
     @Autowired
     private DateService dateService;
 
-    @Scheduled(fixedDelay = 5000)
+    @Scheduled(fixedDelay = 1000)
     public void actualiserLune() {
         dateService.setLuneJeu(dateService.getLuneJeu() + 1);
     }

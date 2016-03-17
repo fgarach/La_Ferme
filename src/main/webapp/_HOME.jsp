@@ -12,13 +12,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <body>
+    <body class="body2">
         <h1>Bienvenue sur le site de jeu de La Ferme ! </h1>
     <c:if test="${sessionScope.email==null}">
         Veuillez vous inscrire ou vous connecter pour acceder au jeu.
     </c:if>
     <c:if test="${sessionScope.email!=null}">
-        <a href="start_game">Commencer une partie</a>
+        <h2><div class="bouton"> <a href="start">Commencer une partie</a></div></h2>
     </c:if>
 </body>
 </html>

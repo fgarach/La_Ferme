@@ -11,7 +11,7 @@ package laferme.configuration;
  */
 public class Config {
     
-    public static int initialisationNbFermier = 3;
+    public static int initialisationNbFermier =1;
     public static int initialisationNbCarotte = 3;
     public static int initialisationNbBle = 3;
     public static int initialisationNbChevre = 2;
@@ -21,7 +21,7 @@ public class Config {
     public static int cycleCreationFromage = 6; //mois
     public static int cycleNaissanceChevre = 12;
     public static int cycleMortChevre = 3;
-    public static int cycleMortFermier = 3;
+    public static int cycleMortFermier = 1;
     
     
     public static int nbRecolteCarotteMin = 2;

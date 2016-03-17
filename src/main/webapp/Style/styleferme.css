@@ -9,11 +9,18 @@ and open the template in the editor.
 */
 
 body {
-    background-image: url('Image/ferme/fondferme2.png');
+    background-image: url('Image/ferme3.jpg');
     background-size: 1600px;
     background-repeat:no-repeat;
+    text-align: center;
 }
 
+.body2 {
+    background-image: url('Image/fermefond.bmp');
+    background-size: 1600px;
+    background-repeat:no-repeat;
+    text-align: center;
+}
 .titre{
 
     font-weight: bold;
@@ -21,13 +28,27 @@ body {
     font-stretch: extra-condensed;
     font-size: xx-large;
 
-    background-image: url('Image/ferme/bandeau4.png');
+    background-image: url('Image/ferme/bandeauciellaferme.png');
     background-repeat:no-repeat;
     background-size: cover;
-    height: 100px;
+    height: 120px;
 
 
 
+}
+
+.bouton a {
+    display:inline;
+    width:150px;
+    line-height:50px;
+    text-align:center;
+    vertical-align:middle;
+    background:url(Image/bois2.jpg) no-repeat;
+    color:white;
+    text-decoration:none;
+}
+.bouton a:hover {
+    background:url(Image/bois3.jpg) no-repeat;
 }
 
 .pied{
@@ -39,3 +60,62 @@ body {
     bottom: 0;
     right: 0;
 }
+
+.ressources{
+    width: 200px;
+    height: 700px;
+    float: left;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: black;
+    display: inline;
+    border:3px solid black;
+}
+
+.boutonplanter a {
+    display:inline;
+    width:150px;
+    line-height:50px;
+    text-align:center;
+    vertical-align:middle;
+    background:url(Image/ferme/herbe.jpg) no-repeat;
+    color:white;
+    text-decoration:none;
+}
+.boutonplanter a:hover {
+    background:url(Image/ferme/herbe2.jpg) no-repeat;
+}
+
+.encloschevre {
+margin-left:645px;
+min-height:150px;
+border : 3px solid black;
+}
+
+.main {
+max-width:960px;
+margin:auto;
+position:relative;
+}
+.potager {
+width:240px;
+position:absolute;
+}
+.enclos {
+margin-left:245px;
+min-height:150px;
+margin-top: 300px;
+}
+
+
+.table {
+   display:inline;
+   /*float:left;*/
+   /*border:1px solid #FF6600;*/
+   margin:0px;
+   padding:3px;
+    color: black;
+     clear:left;
+   margin:0px;
+   padding:0px;
+   height:100% !important; height:1em;
+  }

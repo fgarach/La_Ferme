@@ -24,9 +24,7 @@ public class HomeServlet extends AutowireServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("_CSS.jsp").include(req, resp);  
-//        System.out.println("1111111111111111");
         req.getRequestDispatcher("_HEADER.jsp").include(req, resp);  
-//        System.out.println("2222222222222222222");
         req.getRequestDispatcher("_HOME.jsp").include(req, resp);
         req.getRequestDispatcher("_FOOTER.jsp").include(req, resp);
     }

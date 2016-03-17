@@ -15,6 +15,7 @@ import laferme.enumeration.TypeEtat;
 import laferme.enumeration.TypeRessource;
 import laferme.exception.NourritureInsuffisanteException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 /**
@@ -29,6 +30,8 @@ public class RessourceService {
 
     @Autowired
     private DateService dateService;
+    
+    
 
     public void planter(Ressource r) {
         r.setTypeEtat(TypeEtat.OCCUPE);
