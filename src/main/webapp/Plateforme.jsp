@@ -6,25 +6,22 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+
 <div>
     <div style="float: left;display: inline;background-color: #336600;width:300px;height:700px;color:white;text-align: left;opacity: 0.8">
         nbCarotteDisponible : ${carottesDispo.size()}<a href="planter?type=carotte"><input type="button" value="Planter"></a><br>
         nbBleDisponible : ${blesDispo.size()}<a href="planter?type=ble"><input type="button" value="Planter"></a><br>
-        nbFromages: ${fromagesDispo.size()}
+        nbFromages: ${fromagesDispo.size()}<br><br>
+        Lune = ${lune}<br><br>
+        Vie du fermier : ${vieFermier}
+ 
         <br><br>
         <a href="actualisation"><input type="button" value="Actualiser"></a>
     </div>
         
     <div style="float: left;display: inline;border:1px solid black;width:1000px;height:700px">
         <div style="text-align: center">
-            <c:if test="${empty fermiers}">
-                <script>
-                    alert("Votre fermier est mort");
-                     
-                </script>
-            </c:if>
-            
+           
             <c:if test="${!empty fermiers}">
                 <c:forEach items="${fermiers}" var="fermier">
                     1 fermier<br>
@@ -89,7 +86,7 @@
                     </form>
                 </c:if>
 
-                <c:if test="${chevresNonEnceintes.size()%2==0}">
+                    <c:if test="${chevresNonEnceintes.size()>=2}">
                     <a href="accoupler_chevres"><input type="button" value="Accoupler 2 chevres"></a>
                     </c:if>
 
@@ -98,7 +95,7 @@
             <c:if test="${!empty chevresEnceintes}">
                 ******chevres enceintes******<br>
 
-                    Nombre de chevres : ${chevresEnceintes.size()}<br> 
+                Nombre de couples : ${Math.round(chevresEnceintes.size()/2)}<br> 
 
                 <c:if test="${blesDispo.size()>=(nourrirChevreBle*chevresEnceintes.size()) || carottesDispo.size()>=(nourrirChevreCarotte*chevresEnceintes.size())}">
                     <form method="post" action="nourrir">

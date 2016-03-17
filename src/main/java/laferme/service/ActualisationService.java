@@ -170,7 +170,7 @@ public class ActualisationService {
 
     }
 
-    private void supprimerRessourceMorte() {
+    public void supprimerRessourceMorte() {
         List<Ressource> ressourcesMorte = ressourceCrudService.findByTypeEtat(TypeEtat.MORT);
 
         for (Ressource ressource : ressourcesMorte) {

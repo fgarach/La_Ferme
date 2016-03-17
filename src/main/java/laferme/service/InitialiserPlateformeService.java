@@ -37,7 +37,7 @@ public class InitialiserPlateformeService {
 
         List<Ressource> l = (List<Ressource>) ressourceCrudService.findByUtilisateurId(u.getId());
         ressourceCrudService.delete(l);
-
+        dateService.setLuneJeu(0);
         for (int i = 0; i < Config.initialisationNbFermier; i++) {
             Ressource r = new Ressource(null, TypeRessource.FERMIER, dateService.getLuneJeu(), null, null, TypeEtat.VIVANT, u);
             ressourceCrudService.save(r);
@@ -62,5 +62,6 @@ public class InitialiserPlateformeService {
             u.getRessources().add(r);
         }
 
+        
     }
 }

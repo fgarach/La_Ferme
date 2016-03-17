@@ -18,6 +18,8 @@ import laferme.entity.Ressource;
 import laferme.entity.Utilisateur;
 import laferme.enumeration.TypeEtat;
 import laferme.enumeration.TypeRessource;
+import laferme.service.ActualisationService;
+import laferme.service.DateService;
 import laferme.service.InitialiserPlateformeService;
 import laferme.service.RessourceCrudService;
 import laferme.service.UtilisateurCrudService;
@@ -37,6 +39,12 @@ public class PlateformeServlet extends AutowireServlet {
     @Autowired
     private UtilisateurCrudService utilisateurCrudService;
 
+    @Autowired
+    private DateService dateService;
+
+    @Autowired
+    private ActualisationService actualisationService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -55,8 +63,6 @@ public class PlateformeServlet extends AutowireServlet {
             List<Ressource> chevresNonEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.VIVANT);
             List<Ressource> chevresEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.OCCUPE);
 
-            Boolean aNourrir = false;
-
             req.setAttribute("carottesDispo", carottesDispo);
             req.setAttribute("blesDispo", blesDispo);
             req.setAttribute("fromagesDispo", fromagesDispo);
@@ -72,13 +78,23 @@ public class PlateformeServlet extends AutowireServlet {
             req.setAttribute("nourrirFermierFromage", Config.nourrirFermierFromage);
             req.setAttribute("nourrirFermierBle", Config.nourrirFermierBle);
 
-            
+            req.setAttribute("lune", dateService.getLuneJeu());
+            if (!fermiers.isEmpty()) {
+
+                req.setAttribute("vieFermier", (fermiers.get(0).getDateLuneCreation()+1*30)-dateService.getLuneJeu());
+
+
+            }
+
             req.getRequestDispatcher("_CSS.jsp").include(req, resp);
+            req.getRequestDispatcher("_TITRE.jsp").include(req, resp);
+
             req.getRequestDispatcher("_HEADER.jsp").include(req, resp);
-            req.getRequestDispatcher("_OPTIONJEU.jsp").include(req, resp);
-            req.getRequestDispatcher("PlateformeDesign.jsp").include(req, resp);
+            //req.getRequestDispatcher("_OPTIONJEU.jsp").include(req, resp);
+            req.getRequestDispatcher("Plateforme.jsp").include(req, resp);
             req.getRequestDispatcher("_FOOTER.jsp").include(req, resp);
 
+            resp.sendRedirect("actualisation");
         }
 
     }
