@@ -123,12 +123,15 @@ public class ActualisationService {
     }
 
     private void misAJourCycleVieChevre() {
-        List<Ressource> chevres = ressourceCrudService.findByTypeRessource(TypeRessource.CHEVRE);
+        List<Ressource> chevresEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE,TypeEtat.OCCUPE);
 
-        for (Ressource chevre : chevres) {
-            if (dateService.dateExpiree(chevre, chevre.getDateLuneCreation(), Config.cycleMortChevre)){
-                chevre.setTypeEtat(TypeEtat.MORT);
-                ressourceCrudService.save(chevre);
+        for (int i=0;i<chevresEnceintes.size();i++) {
+            if (dateService.dateExpiree(chevresEnceintes.get(i), chevresEnceintes.get(i).getDateLuneCreation(), Config.cycleMortChevre)){
+                chevresEnceintes.get(i).setTypeEtat(TypeEtat.MORT);
+                ressourceCrudService.save(chevresEnceintes.get(i));
+                i++;
+                chevresEnceintes.get(i).setTypeEtat(TypeEtat.VIVANT);
+                
             }
         }
     }
