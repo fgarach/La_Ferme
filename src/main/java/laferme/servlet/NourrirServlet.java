@@ -7,12 +7,15 @@ package laferme.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import laferme.entity.Ressource;
+import laferme.enumeration.TypeEtat;
+import laferme.enumeration.TypeRessource;
 import laferme.service.RessourceCrudService;
 import laferme.service.RessourceService;
 import laferme.spring.AutowireServlet;
@@ -39,14 +42,14 @@ public class NourrirServlet extends AutowireServlet {
 
             Long idFermier = Long.parseLong(req.getParameter("idFermier"));
             Ressource fermier = ressourceCrudService.findOne(idFermier);
-            
-            
+
             ressourceService.nourrir(fermier, typeRessource);
 
         } else if (type.equals("chevre")) {
-            Long idChevre = Long.parseLong(req.getParameter("idChevre"));
-            Ressource chevre = ressourceCrudService.findOne(idChevre);
-            ressourceService.nourrir(chevre, typeRessource);
+            List<Ressource> chevresNonEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.VIVANT);
+            for (Ressource chevre : chevresNonEnceintes ) {
+                ressourceService.nourrir(chevre, typeRessource);
+            }
         }
         resp.sendRedirect("plateforme");
     }

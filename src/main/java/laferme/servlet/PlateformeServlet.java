@@ -75,7 +75,7 @@ public class PlateformeServlet extends AutowireServlet {
             
             req.getRequestDispatcher("_CSS.jsp").include(req, resp);
             req.getRequestDispatcher("_HEADER.jsp").include(req, resp);
-            req.getRequestDispatcher("PlateformeDesign.jsp").include(req, resp);
+            req.getRequestDispatcher("Plateforme.jsp").include(req, resp);
             req.getRequestDispatcher("_FOOTER.jsp").include(req, resp);
 
         }
