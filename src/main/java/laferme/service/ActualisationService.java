@@ -62,7 +62,7 @@ public class ActualisationService {
                 int nombreCarotteRecoltees = rand.nextInt(Config.nbRecolteCarotteMax - Config.nbRecolteCarotteMin + 1) + Config.nbRecolteCarotteMin;
 
                 for (int i = 0; i < nombreCarotteRecoltees; i++) {
-                    Ressource carotte = new Ressource(null, TypeRessource.CAROTTE, dateService.getLuneJeu(), null,null, TypeEtat.VIVANT, u);
+                    Ressource carotte = new Ressource(null, TypeRessource.CAROTTE, dateService.getLuneJeu(), null, null, TypeEtat.VIVANT, u);
                     ressourceCrudService.save(carotte);
                     u.getRessources().add(carotte);
                 }
@@ -83,7 +83,7 @@ public class ActualisationService {
                 int nombreBleRecoltes = rand.nextInt(Config.nbRecolteBleMax - Config.nbRecolteBleMin + 1) + Config.nbRecolteBleMin;
 
                 for (int i = 0; i < nombreBleRecoltes; i++) {
-                    Ressource ble = new Ressource(null, TypeRessource.BLE, dateService.getLuneJeu(), null,null, TypeEtat.VIVANT, u);
+                    Ressource ble = new Ressource(null, TypeRessource.BLE, dateService.getLuneJeu(), null, null, TypeEtat.VIVANT, u);
                     ressourceCrudService.save(ble);
                     u.getRessources().add(ble);
                 }
@@ -101,7 +101,7 @@ public class ActualisationService {
                 int nombreFromageRecoltes = rand.nextInt(Config.nbRecolteFromageMax - Config.nbRecolteFromageMin + 1) + Config.nbRecolteFromageMin;
 
                 for (int i = 0; i < nombreFromageRecoltes; i++) {
-                    Ressource fromage = new Ressource(null, TypeRessource.FROMAGE, dateService.getLuneJeu(), null,null,TypeEtat.VIVANT, u);
+                    Ressource fromage = new Ressource(null, TypeRessource.FROMAGE, dateService.getLuneJeu(), null, null, TypeEtat.VIVANT, u);
                     ressourceCrudService.save(fromage);
                     u.getRessources().add(fromage);
                 }
@@ -123,15 +123,24 @@ public class ActualisationService {
     }
 
     private void misAJourCycleVieChevre() {
-        List<Ressource> chevresEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE,TypeEtat.OCCUPE);
+        List<Ressource> chevresEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.OCCUPE);
 
-        for (int i=0;i<chevresEnceintes.size();i++) {
-            if (dateService.dateExpiree(chevresEnceintes.get(i), chevresEnceintes.get(i).getDateLuneCreation(), Config.cycleMortChevre)){
+        for (int i = 0; i < chevresEnceintes.size()-1; i=i+2) {
+            if (dateService.dateExpiree(chevresEnceintes.get(i), chevresEnceintes.get(i).getDateLuneCreation(), Config.cycleMortChevre)) {
                 chevresEnceintes.get(i).setTypeEtat(TypeEtat.MORT);
                 ressourceCrudService.save(chevresEnceintes.get(i));
-                i++;
-                chevresEnceintes.get(i).setTypeEtat(TypeEtat.VIVANT);
-                
+                chevresEnceintes.get(i+1).setTypeEtat(TypeEtat.VIVANT);
+                ressourceCrudService.save(chevresEnceintes.get(i+1));
+
+            }
+        }
+
+        List<Ressource> chevresNonEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.VIVANT);
+
+        for (Ressource chevre : chevresNonEnceintes) {
+            if (dateService.dateExpiree(chevre, chevre.getDateLuneCreation(), Config.cycleMortChevre)) {
+                chevre.setTypeEtat(TypeEtat.MORT);
+                ressourceCrudService.save(chevre);
             }
         }
     }
@@ -147,7 +156,7 @@ public class ActualisationService {
                 if (!naissance) {
                     naissance = true;
                     Utilisateur u = chevreEnceinte.getUtilisateur();
-                    Ressource chevre = new Ressource(null, TypeRessource.CHEVRE, dateService.getLuneJeu(), dateService.getLuneJeu(),null, TypeEtat.VIVANT, u);
+                    Ressource chevre = new Ressource(null, TypeRessource.CHEVRE, dateService.getLuneJeu(), dateService.getLuneJeu(), null, TypeEtat.VIVANT, u);
                     ressourceCrudService.save(chevre);
                     u.getRessources().add(chevre);
                 } else {

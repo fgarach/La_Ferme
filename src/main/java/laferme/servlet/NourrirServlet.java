@@ -46,8 +46,14 @@ public class NourrirServlet extends AutowireServlet {
             ressourceService.nourrir(fermier, typeRessource);
 
         } else if (type.equals("chevre")) {
-            List<Ressource> chevresNonEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.VIVANT);
-            for (Ressource chevre : chevresNonEnceintes ) {
+            List<Ressource> chevres =null;
+            if (req.getParameter("enceinte").equals("faux")) {
+                chevres = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.VIVANT);
+            }
+            else{
+                chevres = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.OCCUPE);
+            }
+            for (Ressource chevre : chevres) {
                 ressourceService.nourrir(chevre, typeRessource);
             }
         }
