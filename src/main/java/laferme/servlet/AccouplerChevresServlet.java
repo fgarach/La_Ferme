@@ -14,10 +14,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import laferme.entity.Ressource;
+import laferme.entity.Utilisateur;
 import laferme.enumeration.TypeEtat;
 import laferme.enumeration.TypeRessource;
 import laferme.service.DateService;
 import laferme.service.RessourceCrudService;
+import laferme.service.UtilisateurCrudService;
 import laferme.spring.AutowireServlet;
 import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +37,14 @@ public class AccouplerChevresServlet extends AutowireServlet {
     @Autowired
     private DateService dateService;
     
+    @Autowired
+    private UtilisateurCrudService utilisateurService;
+    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
-        List<Ressource> chevres = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.VIVANT);
+        String email =req.getSession().getAttribute("email").toString();
+        Utilisateur u= utilisateurService.findByEmail(email);
+        List<Ressource> chevres = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CHEVRE, TypeEtat.VIVANT,u.getId());
         
         for(int i=0;i<2;i++){
             chevres.get(i).setDateLuneCycleEnceinte(dateService.getLuneJeu());

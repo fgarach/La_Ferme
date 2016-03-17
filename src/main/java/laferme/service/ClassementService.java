@@ -31,22 +31,22 @@ public class ClassementService {
 
         List<Utilisateur> utilisateurs = (List<Utilisateur>) utilisateurCrudService.findAll();
 
-        for (Utilisateur util : utilisateurs) {
-
-            List<Ressource> carottesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CAROTTE, TypeEtat.VIVANT);
-            List<Ressource> carottePlantees = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CAROTTE, TypeEtat.OCCUPE);
-            List<Ressource> blesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.VIVANT);
-            List<Ressource> blePlantes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.OCCUPE);
-            List<Ressource> chevresNonEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.VIVANT);
-            List<Ressource> chevresEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.OCCUPE);
-
-            int nbCarotte = carottesDispo.size() + carottePlantees.size();
-            int nbChevre = chevresNonEnceintes.size() + chevresEnceintes.size();
-            int nbBle = blesDispo.size() + blePlantes.size();
-
-            int score = nbCarotte * Config.tauxEchangeCarotte + nbChevre * Config.tauxEchangeChevre + nbBle * Config.tauxEchangeBle;
-
-        }
+//        for (Utilisateur util : utilisateurs) {
+//
+//            List<Ressource> carottesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CAROTTE, TypeEtat.VIVANT);
+//            List<Ressource> carottePlantees = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CAROTTE, TypeEtat.OCCUPE);
+//            List<Ressource> blesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.VIVANT);
+//            List<Ressource> blePlantes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.OCCUPE);
+//            List<Ressource> chevresNonEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.VIVANT);
+//            List<Ressource> chevresEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.OCCUPE);
+//
+//            int nbCarotte = carottesDispo.size() + carottePlantees.size();
+//            int nbChevre = chevresNonEnceintes.size() + chevresEnceintes.size();
+//            int nbBle = blesDispo.size() + blePlantes.size();
+//
+//            int score = nbCarotte * Config.tauxEchangeCarotte + nbChevre * Config.tauxEchangeChevre + nbBle * Config.tauxEchangeBle;
+//
+//        }
         return utilisateurs;
 
     }

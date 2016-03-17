@@ -6,3 +6,5 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="pied">Copyright Fanny Garach</div>
+</body>
+</html>

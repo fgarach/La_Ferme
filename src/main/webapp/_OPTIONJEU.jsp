@@ -18,17 +18,17 @@
             <form method="post" action="echange">
                 Echange :
                 <c:if test="${chevresNonEnceintes.size()>=tauxEchangeChevre}">
-                    <input type="radio" name="ressechange" value="chevre"> ${tauxEchangeChevre} chevre
+                    <input type="radio" name="ressechange" value="chevre" checked> ${tauxEchangeChevre} chevre
                 </c:if>
                 <c:if test="${carottesDispo.size()>=tauxEchangeCarotte}">
-                    <input type="radio" name="ressechange" value="carotte"> ${tauxEchangeCarotte} carottes
+                    <input type="radio" name="ressechange" value="carotte"checked> ${tauxEchangeCarotte} carottes
                 </c:if>
                 <c:if test="${blesDispo.size()>=tauxEchangeBle}">
-                    <input type="radio" name="ressechange" value="ble"> ${tauxEchangeBle} bles
+                    <input type="radio" name="ressechange" value="ble"checked> ${tauxEchangeBle} bles
                 </c:if>
                     <br>
                 Contre :
-                <input type="radio" name="resscontre" value="chevre"> ${tauxEchangeChevre} chevre
+                <input type="radio" name="resscontre" value="chevre"checked> ${tauxEchangeChevre} chevre
                 <input type="radio" name="resscontre" value="carotte"> ${tauxEchangeCarotte} carottes
                 <input type="radio" name="resscontre" value="ble"> ${tauxEchangeBle} bles
                 <input type="submit" value="Echanger">

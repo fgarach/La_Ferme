@@ -17,12 +17,12 @@ import org.springframework.data.repository.CrudRepository;
  * @author admin
  */
 public interface RessourceCrudService extends CrudRepository<Ressource, Long>{
-    public List<Ressource> findByTypeRessourceAndTypeEtat (TypeRessource tr, TypeEtat te);
-    public List<Ressource> findByTypeEtat (TypeEtat te);
-    public List<Ressource> findByTypeRessource (TypeRessource tr);
+    public List<Ressource> findByTypeRessourceAndTypeEtatAndUtilisateurId (TypeRessource tr, TypeEtat te,Long id);
+    public List<Ressource> findByTypeEtatAndUtilisateurId (TypeEtat te,Long id);
+    public List<Ressource> findByTypeRessourceAndUtilisateurId (TypeRessource tr,Long id);
     public List<Ressource> findByUtilisateurId (Long id);
-    public Integer countByTypeRessource (TypeRessource tr);
-    public Integer countByTypeRessourceAndTypeEtat (TypeRessource tr, TypeEtat te);
+    public Integer countByTypeRessourceAndUtilisateurId (TypeRessource tr,Long id);
+    public Integer countByTypeRessourceAndTypeEtatAndUtilisateurId (TypeRessource tr, TypeEtat te,Long id);
   
     
 }

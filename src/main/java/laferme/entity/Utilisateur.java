@@ -30,6 +30,8 @@ public class Utilisateur implements Serializable {
     
     private String mdp;
     
+    private int score;
+    
     
     @OneToMany (mappedBy="utilisateur")
     List<Ressource> ressources = new ArrayList();
@@ -65,6 +67,16 @@ public class Utilisateur implements Serializable {
     public void setRessources(List<Ressource> ressources) {
         this.ressources = ressources;
     }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+    
+    
 
     public Utilisateur() {
     }

@@ -31,13 +31,12 @@ public class InitialiserPlateformeService {
     @Autowired
     private DateService dateService;
 
-    public void initialiser() {
-
-        Utilisateur u = utilisateurCrudService.findOne(1L);
+    public void initialiser(Utilisateur u) {
 
         List<Ressource> l = (List<Ressource>) ressourceCrudService.findByUtilisateurId(u.getId());
         ressourceCrudService.delete(l);
-
+        
+        dateService.setLuneJeu(0);
         for (int i = 0; i < Config.initialisationNbFermier; i++) {
             Ressource r = new Ressource(null, TypeRessource.FERMIER, dateService.getLuneJeu(), null, null, TypeEtat.VIVANT, u);
             ressourceCrudService.save(r);
@@ -62,5 +61,6 @@ public class InitialiserPlateformeService {
             u.getRessources().add(r);
         }
 
+       
     }
 }

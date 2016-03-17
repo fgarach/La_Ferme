@@ -18,6 +18,8 @@ import laferme.entity.Ressource;
 import laferme.entity.Utilisateur;
 import laferme.enumeration.TypeEtat;
 import laferme.enumeration.TypeRessource;
+import laferme.service.ActualisationService;
+import laferme.service.DateService;
 import laferme.service.InitialiserPlateformeService;
 import laferme.service.RessourceCrudService;
 import laferme.service.UtilisateurCrudService;
@@ -30,33 +32,41 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @WebServlet(name = "PlateformeServlet", urlPatterns = {"/plateforme"})
 public class PlateformeServlet extends AutowireServlet {
-    
+
     @Autowired
     private RessourceCrudService ressourceCrudService;
-    
+
     @Autowired
     private UtilisateurCrudService utilisateurCrudService;
-    
+
+    @Autowired
+    private DateService dateService;
+
+    @Autowired
+    private ActualisationService actualisationService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String email = req.getSession().getAttribute("email").toString();
+        Utilisateur u = utilisateurCrudService.findByEmail(email);
+        Long idUtilisateur = u.getId();
+        List<Ressource> fermiers = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.FERMIER, TypeEtat.VIVANT, idUtilisateur);
+        System.out.println("cccc"+u.getId());
         
-        List<Ressource> fermiers = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.FERMIER, TypeEtat.VIVANT);
         //if (fermiers.isEmpty()) {
         if (false) {
             //interface, vous avez perdu
         } else {
-            
-            List<Ressource> carottesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CAROTTE, TypeEtat.VIVANT);
-            List<Ressource> blesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.VIVANT);
-            List<Ressource> fromagesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.FROMAGE, TypeEtat.VIVANT);
-            
-            List<Ressource> carottePlantees = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CAROTTE, TypeEtat.OCCUPE);
-            List<Ressource> blePlantes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.OCCUPE);
-            List<Ressource> chevresNonEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.VIVANT);
-            List<Ressource> chevresEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.OCCUPE);
-            
-            Boolean aNourrir = false;
-            
+
+            List<Ressource> carottesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CAROTTE, TypeEtat.VIVANT, idUtilisateur);
+            List<Ressource> blesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.BLE, TypeEtat.VIVANT, idUtilisateur);
+            List<Ressource> fromagesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.FROMAGE, TypeEtat.VIVANT, idUtilisateur);
+
+            List<Ressource> carottePlantees = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CAROTTE, TypeEtat.OCCUPE, idUtilisateur);
+            List<Ressource> blePlantes = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.BLE, TypeEtat.OCCUPE, idUtilisateur);
+            List<Ressource> chevresNonEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CHEVRE, TypeEtat.VIVANT, idUtilisateur);
+            List<Ressource> chevresEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CHEVRE, TypeEtat.OCCUPE, idUtilisateur);
+
             req.setAttribute("carottesDispo", carottesDispo);
             req.setAttribute("blesDispo", blesDispo);
             req.setAttribute("fromagesDispo", fromagesDispo);
@@ -71,21 +81,27 @@ public class PlateformeServlet extends AutowireServlet {
             req.setAttribute("nourrirFermierCarotte", Config.nourrirFermierCarotte);
             req.setAttribute("nourrirFermierFromage", Config.nourrirFermierFromage);
             req.setAttribute("nourrirFermierBle", Config.nourrirFermierBle);
+
+            req.setAttribute("lune", dateService.getLuneJeu());
+            if (!fermiers.isEmpty()) {
+
+                req.setAttribute("vieFermier", (fermiers.get(0).getDateLuneCreation() + 1 * 30) - dateService.getLuneJeu());
+
+            }
+
+            //req.getRequestDispatcher("_CSS.jsp").include(req, resp);
+            //req.getRequestDispatcher("_TITRE.jsp").include(req, resp);
+            //req.getRequestDispatcher("_HEADER.jsp").include(req, resp);
+            //req.getRequestDispatcher("_OPTIONJEU.jsp").include(req, resp);
+            //req.getRequestDispatcher("_FOOTER.jsp").include(req, resp);
             req.setAttribute("tauxEchangeChevre", Config.tauxEchangeChevre);
             req.setAttribute("tauxEchangeCarotte", Config.tauxEchangeCarotte);
             req.setAttribute("tauxEchangeBle", Config.tauxEchangeBle);
-            
-            String option = req.getParameter("option");
 
-//            req.getRequestDispatcher("_CSS.jsp").include(req, resp);
-//            req.getRequestDispatcher("_HEADER.jsp").include(req, resp);
-//            req.getRequestDispatcher("_OPTIONJEU.jsp").include(req, resp);
-//            req.getRequestDispatcher("PlateformeDesign.jsp").include(req, resp);
-//            req.getRequestDispatcher("_FOOTER.jsp").include(req, resp);
-            req.getRequestDispatcher("PlateformeDesign.jsp").forward(req, resp);
-            
+            String option = req.getParameter("option");
+            req.getRequestDispatcher("PlateformeDesign.jsp").include(req, resp);
+            resp.sendRedirect("actualisation");
         }
-        
+
     }
-    
 }

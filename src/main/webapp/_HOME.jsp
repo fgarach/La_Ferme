@@ -20,5 +20,4 @@
     <c:if test="${sessionScope.email!=null}">
         <h2><div class="bouton"> <a href="start">Commencer une partie</a></div></h2>
     </c:if>
-</body>
-</html>
+

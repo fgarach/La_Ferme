@@ -12,7 +12,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import laferme.entity.Utilisateur;
 import laferme.service.InitialiserPlateformeService;
+import laferme.service.UtilisateurCrudService;
 import laferme.spring.AutowireServlet;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,12 +27,18 @@ public class StartServlet extends AutowireServlet {
 
     @Autowired
     private InitialiserPlateformeService initialiserService;
-    
+
+    @Autowired
+    private UtilisateurCrudService utilisateurService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        initialiserService.initialiser();
-        resp.sendRedirect("plateforme");
+        String email = req.getSession().getAttribute("email").toString();
+        Utilisateur u = utilisateurService.findByEmail(email);
+        initialiserService.initialiser(u);
         
+        resp.sendRedirect("plateforme");
+
     }
 
 }
