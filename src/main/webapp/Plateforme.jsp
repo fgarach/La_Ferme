@@ -7,20 +7,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<div style="font-size: medium">
-    <div style="float: left;display: inline;border:1px solid black;width:300px;height:700px">
+<div>
+    <div style="float: left;display: inline;background-color: #336600;width:300px;height:700px;color:white;text-align: left;opacity: 0.8">
         nbCarotteDisponible : ${carottesDispo.size()}<a href="planter?type=carotte"><input type="button" value="Planter"></a><br>
         nbBleDisponible : ${blesDispo.size()}<a href="planter?type=ble"><input type="button" value="Planter"></a><br>
         nbFromages: ${fromagesDispo.size()}
         <br><br>
         <a href="actualisation"><input type="button" value="Actualiser"></a>
-
-
     </div>
-    <div style="font-size: medium;float: left;display: inline;border:1px solid black;width:1000px;height:700px">
-
-
+        
+    <div style="float: left;display: inline;border:1px solid black;width:1000px;height:700px">
         <div style="text-align: center">
+            <c:if test="${empty fermiers}">
+                <script>
+                    alert("Votre fermier est mort");
+                     
+                </script>
+            </c:if>
+            
             <c:if test="${!empty fermiers}">
                 <c:forEach items="${fermiers}" var="fermier">
                     1 fermier<br>
@@ -51,14 +55,12 @@
 
         <div style="float:left">
             <c:if test="${!empty carottesPlantees}">
-                <c:forEach items="${carottesPlantees}" var="carotte">
-                    1 carotte <br> 
-                </c:forEach>
+                Nombre de carottes plantees : ${carottesPlantees.size()} <br> 
             </c:if>
             <c:if test="${!empty blesPlantes}">
-                <c:forEach items="${blesPlantes}" var="ble">
-                    1 ble <br> 
-                </c:forEach>
+
+                Nombre de bles plantes : ${blesPlantes.size()} <br> 
+
             </c:if>        
         </div>
 
@@ -66,25 +68,21 @@
 
         <div style="float:right">
             <c:if test="${!empty chevresNonEnceintes}">
-                <table>
-                    ******chevres non enceintes******<br>
-                    <tr>
-                        <c:forEach items="${chevresNonEnceintes}" var="chevre">
-                            <td>
-                                1 chevre <br> 
-                            <td>
-                            </c:forEach>
-                    <tr>
-                </table>
+
+                ******chevres non enceintes******<br>
+
+                    Nombre de chevres : ${chevresNonEnceintes.size()}<br> 
+
                 <c:if test="${blesDispo.size()>=(nourrirChevreBle*chevresNonEnceintes.size()) || carottesDispo.size()>=(nourrirChevreCarotte*chevresNonEnceintes.size())}">
                     <form method="post" action="nourrir">
-                        <c:if test="${blesDispo.size()>=nourrirChevreBle}">
+                        <c:if test="${blesDispo.size()>=(nourrirChevreBle*chevresNonEnceintes.size())}">
                             <input type="radio" name="nourriture" value="ble" checked>1 ble
                         </c:if>
-                        <c:if test="${carottesDispo.size()>=nourrirChevreCarotte}">
+                        <c:if test="${carottesDispo.size()>=(nourrirChevreCarotte*chevresNonEnceintes.size())}">
                             <input type="radio" name="nourriture" value="carotte" checked>1 carotte
                         </c:if>
                         <input type="hidden" name="type" value="chevre">
+                        <input type="hidden" name="enceinte" value="faux">
                         <br>
                         <input type="submit" value="Nourrir">
 
@@ -98,36 +96,30 @@
             </c:if>    
 
             <c:if test="${!empty chevresEnceintes}">
-                <table>
-                    ********chevres enceintes********<br>
-                    <tr>
-                        <c:forEach items="${chevresEnceintes}" var="chevre">
-                            <td>
-                                1 chevre <br> 
-                                <c:if test="${blesDispo.size()>=nourrirChevreBle || CarottesDispo.size()>=nourrirChevreCarotte}">
-                                    <form method="post" action="nourrir">
-                                        <c:if test="${blesDispo.size()>=nourrirChevreBle}">
-                                            <input type="radio" name="nourriture" value="ble" checked>1 ble
-                                        </c:if>
-                                        <c:if test="${carottesDispo.size()>=nourrirChevreCarotte}">
-                                            <input type="radio" name="nourriture" value="carotte" checked> 1 carotte
-                                        </c:if>
-                                        <input type="hidden" name="type" value="chevre">
-                                        <input type="hidden" name="idChevre" value="${chevre.getId()}"><br>
-                                        <input type="submit" value="Nourrir">
+                ******chevres enceintes******<br>
 
-                                    </form>
-                                </c:if>
-                            <td>
-                            </c:forEach>
-                    <tr>
-                </table>
+                    Nombre de chevres : ${chevresEnceintes.size()}<br> 
+
+                <c:if test="${blesDispo.size()>=(nourrirChevreBle*chevresEnceintes.size()) || carottesDispo.size()>=(nourrirChevreCarotte*chevresEnceintes.size())}">
+                    <form method="post" action="nourrir">
+                        <c:if test="${blesDispo.size()>=(nourrirChevreBle*chevresEnceintes.size())}">
+                            <input type="radio" name="nourriture" value="ble" checked>1 ble
+                        </c:if>
+                        <c:if test="${carottesDispo.size()>=(nourrirChevreCarotte*chevresEnceintes.size())}">
+                            <input type="radio" name="nourriture" value="carotte" checked>1 carotte
+                        </c:if>
+                        <input type="hidden" name="type" value="chevre">
+                        <input type="hidden" name="enceinte" value="vrai">
+                        <br>
+                        <input type="submit" value="Nourrir">
+                    </form>
+                </c:if>
             </c:if>
-        </div>
     </div>
-    <div style="float: right;display: inline;border:1px solid black;width:200px;height:700px">
+</div>
+<div style="float: right;display: inline;border:1px solid black;width:200px;height:700px">
 
-    </div>
+</div>
 
 
 
