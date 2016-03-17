@@ -18,24 +18,24 @@
             <form method="post" action="echange">
                 Echange :
                 <c:if test="${chevresNonEnceintes.size()>=tauxEchangeChevre}">
-                    <input type="radio" name="echange" value="chevre"> ${tauxEchangeChevre} chevre
+                    <input type="radio" name="ressechange" value="chevre"> ${tauxEchangeChevre} chevre
                 </c:if>
                 <c:if test="${carottesDispo.size()>=tauxEchangeCarotte}">
-                    <input type="radio" name="echange" value="carotte"> ${tauxEchangeCarotte} carottes
+                    <input type="radio" name="ressechange" value="carotte"> ${tauxEchangeCarotte} carottes
                 </c:if>
                 <c:if test="${blesDispo.size()>=tauxEchangeBle}">
-                    <input type="radio" name="echange" value="ble"> ${tauxEchangeBle} bles
+                    <input type="radio" name="ressechange" value="ble"> ${tauxEchangeBle} bles
                 </c:if>
                     <br>
                 Contre :
-                <input type="radio" name="contre" value="chevre"> ${tauxEchangeChevre} chevre
-                <input type="radio" name="contre" value="carotte"> ${tauxEchangeCarotte} carottes
-                <input type="radio" name="contre" value="ble"> ${tauxEchangeBle} bles
+                <input type="radio" name="resscontre" value="chevre"> ${tauxEchangeChevre} chevre
+                <input type="radio" name="resscontre" value="carotte"> ${tauxEchangeCarotte} carottes
+                <input type="radio" name="resscontre" value="ble"> ${tauxEchangeBle} bles
                 <input type="submit" value="Echanger">
             </form>
         </c:if>
 
-        <c:if test="${!option == 'echange'}">
+        <c:if test="${option == 'classement'}">
             xxxxxxxxxxxxxxx
         </c:if>
     </c:if>
