@@ -98,7 +98,7 @@ body {
 .encloschevre {
 margin-left:645px;
 min-height:150px;
-border : 3px solid black;
+
 }
 
 .main {
@@ -111,9 +111,9 @@ width:240px;
 position:absolute;
 }
 .enclos {
-margin-left:245px;
+margin-left:500px;
 min-height:150px;
-margin-top: 300px;
+margin-top: 20px;
 }
 
 

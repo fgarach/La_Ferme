@@ -30,33 +30,33 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @WebServlet(name = "PlateformeServlet", urlPatterns = {"/plateforme"})
 public class PlateformeServlet extends AutowireServlet {
-
+    
     @Autowired
     private RessourceCrudService ressourceCrudService;
-
+    
     @Autowired
     private UtilisateurCrudService utilisateurCrudService;
-
+    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        
         List<Ressource> fermiers = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.FERMIER, TypeEtat.VIVANT);
         //if (fermiers.isEmpty()) {
         if (false) {
             //interface, vous avez perdu
         } else {
-
+            
             List<Ressource> carottesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CAROTTE, TypeEtat.VIVANT);
             List<Ressource> blesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.VIVANT);
             List<Ressource> fromagesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.FROMAGE, TypeEtat.VIVANT);
-
+            
             List<Ressource> carottePlantees = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CAROTTE, TypeEtat.OCCUPE);
             List<Ressource> blePlantes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.OCCUPE);
             List<Ressource> chevresNonEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.VIVANT);
             List<Ressource> chevresEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.OCCUPE);
-
+            
             Boolean aNourrir = false;
-
+            
             req.setAttribute("carottesDispo", carottesDispo);
             req.setAttribute("blesDispo", blesDispo);
             req.setAttribute("fromagesDispo", fromagesDispo);
@@ -74,17 +74,18 @@ public class PlateformeServlet extends AutowireServlet {
             req.setAttribute("tauxEchangeChevre", Config.tauxEchangeChevre);
             req.setAttribute("tauxEchangeCarotte", Config.tauxEchangeCarotte);
             req.setAttribute("tauxEchangeBle", Config.tauxEchangeBle);
-
+            
             String option = req.getParameter("option");
 
-            req.getRequestDispatcher("_CSS.jsp").include(req, resp);
-            req.getRequestDispatcher("_HEADER.jsp").include(req, resp);
-            req.getRequestDispatcher("_OPTIONJEU.jsp").include(req, resp);
-            req.getRequestDispatcher("PlateformeDesign.jsp").include(req, resp);
-            req.getRequestDispatcher("_FOOTER.jsp").include(req, resp);
-
+//            req.getRequestDispatcher("_CSS.jsp").include(req, resp);
+//            req.getRequestDispatcher("_HEADER.jsp").include(req, resp);
+//            req.getRequestDispatcher("_OPTIONJEU.jsp").include(req, resp);
+//            req.getRequestDispatcher("PlateformeDesign.jsp").include(req, resp);
+//            req.getRequestDispatcher("_FOOTER.jsp").include(req, resp);
+            req.getRequestDispatcher("PlateformeDesign.jsp").forward(req, resp);
+            
         }
-
+        
     }
-
+    
 }
