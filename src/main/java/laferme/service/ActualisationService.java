@@ -38,20 +38,20 @@ public class ActualisationService {
         dateService.setLuneJeu(dateService.getLuneJeu() + 1);
     }
 
-    public void actualiser() {
-        misAJourCarotteDisponibleEtPlantee();
-        misAJourBleDisponibleEtPlantee();
-        misAJourFromageDisponible();
-        misAJourNaissanceChevre();
-        misAJourCycleVieFermier();
-        misAJourCycleVieChevre();
-        supprimerRessourceMorte();
+    public void actualiser(Long idUtilisateur) {
+        misAJourCarotteDisponibleEtPlantee(idUtilisateur);
+        misAJourBleDisponibleEtPlantee(idUtilisateur);
+        misAJourFromageDisponible(idUtilisateur);
+        misAJourNaissanceChevre(idUtilisateur);
+        misAJourCycleVieFermier(idUtilisateur);
+        misAJourCycleVieChevre(idUtilisateur);
+        supprimerRessourceMorte(idUtilisateur);
     }
 
-    private void misAJourCarotteDisponibleEtPlantee() {
-
-        List<Ressource> carottesPlantees = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CAROTTE, TypeEtat.OCCUPE);
-        System.out.println("taille : " + carottesPlantees.size());
+    private void misAJourCarotteDisponibleEtPlantee(Long idUtilisateur) {
+        
+        List<Ressource> carottesPlantees = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CAROTTE, TypeEtat.OCCUPE,idUtilisateur);
+       
 
         for (Ressource carottePlantee : carottesPlantees) {
             if (dateService.dateExpiree(carottePlantee, carottePlantee.getDateLuneCycle(), Config.cyclePlantageCarotte)) {
@@ -70,9 +70,9 @@ public class ActualisationService {
         }
     }
 
-    private void misAJourBleDisponibleEtPlantee() {
+    private void misAJourBleDisponibleEtPlantee(Long idUtilisateur) {
 
-        List<Ressource> blesPlantes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.OCCUPE);
+        List<Ressource> blesPlantes = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.BLE, TypeEtat.OCCUPE,idUtilisateur);
 
         for (Ressource blePlante : blesPlantes) {
             if (dateService.dateExpiree(blePlante, blePlante.getDateLuneCycle(), Config.cyclePlantageBle)) {
@@ -91,8 +91,8 @@ public class ActualisationService {
         }
     }
 
-    private void misAJourFromageDisponible() {
-        List<Ressource> chevres = ressourceCrudService.findByTypeRessource(TypeRessource.CHEVRE);
+    private void misAJourFromageDisponible(Long idUtilisateur) {
+        List<Ressource> chevres = ressourceCrudService.findByTypeRessourceAndUtilisateurId(TypeRessource.CHEVRE,idUtilisateur);
 
         for (Ressource chevre : chevres) {
             if (dateService.dateExpiree(chevre, chevre.getDateLuneCycle(), Config.cycleCreationFromage)) {
@@ -111,8 +111,8 @@ public class ActualisationService {
         }
     }
 
-    private void misAJourCycleVieFermier() {
-        List<Ressource> fermiers = ressourceCrudService.findByTypeRessource(TypeRessource.FERMIER);
+    private void misAJourCycleVieFermier(Long idUtilisateur) {
+        List<Ressource> fermiers = ressourceCrudService.findByTypeRessourceAndUtilisateurId(TypeRessource.FERMIER,idUtilisateur);
 
         for (Ressource fermier : fermiers) {
             if (dateService.dateExpiree(fermier, fermier.getDateLuneCreation(), Config.cycleMortFermier)) {
@@ -122,8 +122,8 @@ public class ActualisationService {
         }
     }
 
-    private void misAJourCycleVieChevre() {
-        List<Ressource> chevresEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.OCCUPE);
+    private void misAJourCycleVieChevre(Long idUtilisateur) {
+        List<Ressource> chevresEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CHEVRE, TypeEtat.OCCUPE,idUtilisateur);
 
         for (int i = 0; i < chevresEnceintes.size()-1; i=i+2) {
             if (dateService.dateExpiree(chevresEnceintes.get(i), chevresEnceintes.get(i).getDateLuneCreation(), Config.cycleMortChevre)) {
@@ -135,7 +135,7 @@ public class ActualisationService {
             }
         }
 
-        List<Ressource> chevresNonEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.VIVANT);
+        List<Ressource> chevresNonEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CHEVRE, TypeEtat.VIVANT,idUtilisateur);
 
         for (Ressource chevre : chevresNonEnceintes) {
             if (dateService.dateExpiree(chevre, chevre.getDateLuneCreation(), Config.cycleMortChevre)) {
@@ -145,8 +145,8 @@ public class ActualisationService {
         }
     }
 
-    private void misAJourNaissanceChevre() {
-        List<Ressource> chevreEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.OCCUPE);
+    private void misAJourNaissanceChevre(Long idUtilisateur) {
+        List<Ressource> chevreEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CHEVRE, TypeEtat.OCCUPE,idUtilisateur);
 
         Boolean naissance = false;
 
@@ -170,8 +170,8 @@ public class ActualisationService {
 
     }
 
-    public void supprimerRessourceMorte() {
-        List<Ressource> ressourcesMorte = ressourceCrudService.findByTypeEtat(TypeEtat.MORT);
+    public void supprimerRessourceMorte(Long idUtilisateur) {
+        List<Ressource> ressourcesMorte = ressourceCrudService.findByTypeEtatAndUtilisateurId(TypeEtat.MORT,idUtilisateur);
 
         for (Ressource ressource : ressourcesMorte) {
             Utilisateur u = ressource.getUtilisateur();

@@ -47,21 +47,21 @@ public class PlateformeServlet extends AutowireServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        List<Ressource> fermiers = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.FERMIER, TypeEtat.VIVANT);
+        Long idUtilisateur = Long.parseLong(req.getSession().getAttribute("login").toString());
+        List<Ressource> fermiers = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.FERMIER, TypeEtat.VIVANT,idUtilisateur);
         //if (fermiers.isEmpty()) {
         if (false) {
             //interface, vous avez perdu
         } else {
 
-            List<Ressource> carottesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CAROTTE, TypeEtat.VIVANT);
-            List<Ressource> blesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.VIVANT);
-            List<Ressource> fromagesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.FROMAGE, TypeEtat.VIVANT);
+            List<Ressource> carottesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CAROTTE, TypeEtat.VIVANT,idUtilisateur);
+            List<Ressource> blesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.BLE, TypeEtat.VIVANT,idUtilisateur);
+            List<Ressource> fromagesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.FROMAGE, TypeEtat.VIVANT,idUtilisateur);
 
-            List<Ressource> carottePlantees = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CAROTTE, TypeEtat.OCCUPE);
-            List<Ressource> blePlantes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.BLE, TypeEtat.OCCUPE);
-            List<Ressource> chevresNonEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.VIVANT);
-            List<Ressource> chevresEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.OCCUPE);
+            List<Ressource> carottePlantees = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CAROTTE, TypeEtat.OCCUPE,idUtilisateur);
+            List<Ressource> blePlantes = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.BLE, TypeEtat.OCCUPE,idUtilisateur);
+            List<Ressource> chevresNonEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CHEVRE, TypeEtat.VIVANT,idUtilisateur);
+            List<Ressource> chevresEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CHEVRE, TypeEtat.OCCUPE,idUtilisateur);
 
             req.setAttribute("carottesDispo", carottesDispo);
             req.setAttribute("blesDispo", blesDispo);
@@ -81,22 +81,23 @@ public class PlateformeServlet extends AutowireServlet {
             req.setAttribute("lune", dateService.getLuneJeu());
             if (!fermiers.isEmpty()) {
 
-                req.setAttribute("vieFermier", (fermiers.get(0).getDateLuneCreation()+1*30)-dateService.getLuneJeu());
-
+                req.setAttribute("vieFermier", (fermiers.get(0).getDateLuneCreation() + 1 * 30) - dateService.getLuneJeu());
 
             }
 
-            req.getRequestDispatcher("_CSS.jsp").include(req, resp);
-            req.getRequestDispatcher("_TITRE.jsp").include(req, resp);
-
-            req.getRequestDispatcher("_HEADER.jsp").include(req, resp);
+            //req.getRequestDispatcher("_CSS.jsp").include(req, resp);
+            //req.getRequestDispatcher("_TITRE.jsp").include(req, resp);
+            //req.getRequestDispatcher("_HEADER.jsp").include(req, resp);
             //req.getRequestDispatcher("_OPTIONJEU.jsp").include(req, resp);
-            req.getRequestDispatcher("Plateforme.jsp").include(req, resp);
-            req.getRequestDispatcher("_FOOTER.jsp").include(req, resp);
+            //req.getRequestDispatcher("_FOOTER.jsp").include(req, resp);
+            req.setAttribute("tauxEchangeChevre", Config.tauxEchangeChevre);
+            req.setAttribute("tauxEchangeCarotte", Config.tauxEchangeCarotte);
+            req.setAttribute("tauxEchangeBle", Config.tauxEchangeBle);
 
+            String option = req.getParameter("option");
+            req.getRequestDispatcher("PlateformeDesign.jsp").include(req, resp);
             resp.sendRedirect("actualisation");
         }
 
     }
-
 }

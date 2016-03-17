@@ -31,9 +31,7 @@ public class InitialiserPlateformeService {
     @Autowired
     private DateService dateService;
 
-    public void initialiser() {
-
-        Utilisateur u = utilisateurCrudService.findOne(1L);
+    public void initialiser(Utilisateur u) {
 
         List<Ressource> l = (List<Ressource>) ressourceCrudService.findByUtilisateurId(u.getId());
         ressourceCrudService.delete(l);

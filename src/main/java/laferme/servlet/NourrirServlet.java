@@ -14,10 +14,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import laferme.entity.Ressource;
+import laferme.entity.Utilisateur;
 import laferme.enumeration.TypeEtat;
 import laferme.enumeration.TypeRessource;
 import laferme.service.RessourceCrudService;
 import laferme.service.RessourceService;
+import laferme.service.UtilisateurCrudService;
 import laferme.spring.AutowireServlet;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,11 +35,18 @@ public class NourrirServlet extends AutowireServlet {
 
     @Autowired
     private RessourceService ressourceService;
+    
+    @Autowired
+    private UtilisateurCrudService utilisateurService;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String type = req.getParameter("type");
         String typeRessource = req.getParameter("nourriture");
+        
+        String email =req.getSession().getAttribute("email").toString();
+        Utilisateur u = utilisateurService.findByEmail(email);
+        
         if (type.equals("fermier")) {
 
             Long idFermier = Long.parseLong(req.getParameter("idFermier"));
@@ -48,10 +57,10 @@ public class NourrirServlet extends AutowireServlet {
         } else if (type.equals("chevre")) {
             List<Ressource> chevres =null;
             if (req.getParameter("enceinte").equals("faux")) {
-                chevres = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.VIVANT);
+                chevres = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CHEVRE, TypeEtat.VIVANT,u.getId());
             }
             else{
-                chevres = ressourceCrudService.findByTypeRessourceAndTypeEtat(TypeRessource.CHEVRE, TypeEtat.OCCUPE);
+                chevres = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CHEVRE, TypeEtat.OCCUPE,u.getId());
             }
             for (Ressource chevre : chevres) {
                 ressourceService.nourrir(chevre, typeRessource);

@@ -12,7 +12,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import laferme.entity.Utilisateur;
 import laferme.service.ActualisationService;
+import laferme.service.UtilisateurCrudService;
 import laferme.spring.AutowireServlet;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,9 +28,14 @@ public class ActualisationServlet extends AutowireServlet {
     @Autowired
     private ActualisationService actualisationService;
     
+    @Autowired
+    private UtilisateurCrudService utilisateurService;
+    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       actualisationService.actualiser();
+        String email = req.getSession().getAttribute("email").toString();
+        Utilisateur u = utilisateurService.findByEmail(email);
+        actualisationService.actualiser(u.getId());
        
        req.getRequestDispatcher("plateforme").include(req, resp);
     }
