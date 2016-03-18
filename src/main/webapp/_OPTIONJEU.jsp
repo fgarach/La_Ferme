@@ -31,22 +31,24 @@
                 <input type="radio" name="resscontre" value="chevre"checked> ${tauxEchangeChevre} chevre
                 <input type="radio" name="resscontre" value="carotte"> ${tauxEchangeCarotte} carottes
                 <input type="radio" name="resscontre" value="ble"> ${tauxEchangeBle} bles
-                <input type="submit" value="Echanger">
+                <input type="submit"  value="Echanger">
             </form>
         </c:if>
+        <br><br><br><br>
 
-
-<!--    Classement : 
+    Classement : 
     
         <table>
             <tr>
                 <td>classement</td><td>Utilisateur</td><td>score</td>
             </tr>
-            <tr>
+            
                 <c:forEach items="${classements}" var="util" varStatus="loop" >
-                    <td>loop.index</td> <td>util.email</td> <td>util.score</td>
+                    <tr>
+                    <td>${loop.index+1}</td> <td>${util.email}</td> <td>${util.score}</td>
+                    </tr>
                 </c:forEach>
-            </tr>
-        </table>-->
+            
+        </table>
 
 </div>

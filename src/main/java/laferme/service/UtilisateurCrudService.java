@@ -17,6 +17,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface UtilisateurCrudService extends CrudRepository<Utilisateur, Long> {
 
     public Utilisateur findByEmail(String email);
-    public List<Utilisateur> findUtilisateurByOrderByScoreDesc(List<Utilisateur> utilisateurs);
+    public List<Utilisateur> findAllByOrderByScoreDesc();
     
 }

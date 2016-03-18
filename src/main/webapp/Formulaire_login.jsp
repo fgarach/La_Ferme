@@ -9,6 +9,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <div>
+    <body class="body2">
     <h1>Connexion</h1>
     <form action="login" method="post">
         <table  class="table">
