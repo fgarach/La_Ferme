@@ -26,8 +26,8 @@
         <c:import url="_OPTIONJEU.jsp"/>
         <div>
             <div class="ressources">
-                <img src=Style/Image/ferme/carotte.png alt="Carotte" border=3 align=middle> x ${carottesDispo.size()}<div class="boutonplanter"><a href="planter?type=carotte">Planter</a></div><br>
-                <img src=Style/Image/ferme/ble.png alt="Ble" border=3 align=middle> x ${blesDispo.size()}<span><div class="boutonplanter"><a href="planter?type=ble">Planter</a></div></span><br><br>
+                <img src=Style/Image/ferme/carotte.png alt="Carotte" border=3 align=middle> x ${carottesDispo.size()}<div class="bouton"><a href="planter?type=carotte">Planter</a></div><br>
+                <img src=Style/Image/ferme/ble.png alt="Ble" border=3 align=middle> x ${blesDispo.size()}<span><div class="bouton"><a href="planter?type=ble">Planter</a></div></span><br><br>
                 <img src=Style/Image/ferme/fromage.png alt="Fromage" border=3 align=middle> x ${fromagesDispo.size()}<br><br>
                 <c:if test="${!empty fermiers}">
                     Mise a mort dans : ${vieFermier} lunes
@@ -40,14 +40,9 @@
                 <div class="bouton"><a href="actualisation?id=${sessionScope.login}">Actualiser</a></div>
             </div>
 
-            <!--     <div class="fonctionjeu">
-                     <div class="bouton"><a href=""> echanger </a></div>
-                     <div class="bouton"><a href=""> voir classement </a></div>
-            
-                </div>    
-            -->
 
-            <div style="float: left;display: inline;border:1px solid black;width:1000px;height:700px">
+
+            <div style="float: left;display: inline;width:1000px;height:700px">
 
                 <div style="height:230px;">
                     <c:if test="${!empty fermiers}">
@@ -82,7 +77,7 @@
                         <c:if test="${!empty carottesPlantees}">
                             <c:if test="${carottesPlantees.size()<=4}">
                                 <c:forEach items="${carottesPlantees}" var="carotte">
-                                    <img src=Style/Image/ferme/petitecarotte.png alt="Carotte" border=3 align=middle>
+                                    <img src=Style/Image/ferme/petitecarotte.png alt="Carotte" border=3 margin-top: 100px;align=middle>
                                 </c:forEach>
                             </c:if>
                             <c:if test="${carottesPlantees.size()>4}">
@@ -120,7 +115,7 @@
                         <c:if test="${!empty chevresNonEnceintes}">
                             <div>
 
-                                <img src=Style/Image/ferme/chevre.png alt="Chevre" border=3 align=middle>
+                                <img src=Style/Image/ferme/chevre.png alt="Chevre" border=3 black align=middle>
                                 (${chevresNonEnceintes.size()})
 
                                 <c:if test="${blesDispo.size()>=(nourrirChevreBle*chevresNonEnceintes.size()) || carottesDispo.size()>=(nourrirChevreCarotte*chevresNonEnceintes.size())}">
@@ -140,7 +135,7 @@
                                 </c:if>
 
                                 <c:if test="${chevresNonEnceintes.size()>=2}">
-                                    <br><a href="accoupler_chevres"><input type="button" value="Accoupler 2 chevres"></a>
+                                    <div class="bouton"><a href="accoupler_chevres">Accoupler 2 chevres</a></div>
                                     </c:if>
                             </div>
                         </c:if>    

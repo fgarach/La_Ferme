@@ -100,8 +100,8 @@ public class PlateformeServlet extends AutowireServlet {
             req.setAttribute("tauxEchangeCarotte", Config.tauxEchangeCarotte);
             req.setAttribute("tauxEchangeBle", Config.tauxEchangeBle);
 
-//            List<Utilisateur> classements = classementService.classerTop10();
-//            req.setAttribute("classements", classements);
+            List<Utilisateur> classements = classementService.classerTop10();
+            req.setAttribute("classements", classements);
 
 
             String option = req.getParameter("option");

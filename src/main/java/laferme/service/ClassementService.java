@@ -35,7 +35,7 @@ public class ClassementService {
             this.calculScore(u);
         }
         List<Utilisateur> utilisateurClassés = new ArrayList<Utilisateur>();
-        utilisateurClassés = utilisateurCrudService.findUtilisateurByOrderByScoreDesc(utilisateurs);
+        utilisateurClassés = utilisateurCrudService.findAllByOrderByScoreDesc();
         List<Utilisateur> utilisateurTop10 = new ArrayList<Utilisateur>();
         if (utilisateurClassés.size() < 10) {
             return utilisateurClassés;

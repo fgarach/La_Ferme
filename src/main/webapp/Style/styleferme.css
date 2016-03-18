@@ -9,10 +9,11 @@ and open the template in the editor.
 */
 
 body {
-    background-image: url('Image/ferme3.jpg');
+    background-image: url('Image/fermefond.bmp');
     background-size: 1600px;
     background-repeat:no-repeat;
     text-align: center;
+    color: white;
 }
 
 .body2 {
@@ -20,6 +21,7 @@ body {
     background-size: 1600px;
     background-repeat:no-repeat;
     text-align: center;
+    color : black;
 }
 .titre{
 
@@ -50,6 +52,22 @@ body {
 .bouton a:hover {
     background:url(Image/bois3.jpg) no-repeat;
 }
+input[type=submit], input[type=reset]{
+ display:inline;
+    width:75px;
+    line-height:25px;
+    text-align:center;
+    font-size: medium;
+    vertical-align:middle;
+    background:url(Image/bois2.jpg) no-repeat;
+    color:white;
+    text-decoration:none;
+}
+input[type=submit]:hover, input[type=reset]:hover {
+ background:url(Image/bois3.jpg) no-repeat;
+ }
+
+ 
 
 .pied{
     color : midnightblue ;
@@ -65,9 +83,10 @@ body {
     width: 200px;
     height: 700px;
     float: left;
-    background-color: rgba(0, 0, 0, 0.3);
-    color: black;
+    background-color: rgba(0, 0 , 0, 0.5);
+    color : white;
     display: inline;
+    border:3px solid black;
   
 }
 
@@ -75,10 +94,11 @@ body {
     width: 350px;
     height: 700px;
     float: right;
-    background-color: rgba(0, 0, 0, 0.3);
-    color: black;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
     display: inline;
     border:3px solid black;
+   
 }
 
 .boutonplanter a {
@@ -109,18 +129,17 @@ position:relative;
 .potager {
 width:240px;
 position:absolute;
+margin-top: 250px;
 }
 .enclos {
 margin-left:500px;
 min-height:150px;
-margin-top: 20px;
+margin-top: 100px;
 }
 
 
 .table {
    display:inline;
-   /*float:left;*/
-   /*border:1px solid #FF6600;*/
    margin:0px;
    padding:3px;
     color: black;
