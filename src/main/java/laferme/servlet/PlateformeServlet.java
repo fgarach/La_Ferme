@@ -60,55 +60,47 @@ public class PlateformeServlet extends AutowireServlet {
         Long idUtilisateur = u.getId();
         List<Ressource> fermiers = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.FERMIER, TypeEtat.VIVANT, idUtilisateur);
 
+        List<Ressource> carottesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CAROTTE, TypeEtat.VIVANT, idUtilisateur);
+        List<Ressource> blesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.BLE, TypeEtat.VIVANT, idUtilisateur);
+        List<Ressource> fromagesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.FROMAGE, TypeEtat.VIVANT, idUtilisateur);
 
-        //if (fermiers.isEmpty()) {
-        if (false) {
-            //interface, vous avez perdu
-        } else {
+        List<Ressource> carottePlantees = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CAROTTE, TypeEtat.OCCUPE, idUtilisateur);
+        List<Ressource> blePlantes = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.BLE, TypeEtat.OCCUPE, idUtilisateur);
+        List<Ressource> chevresNonEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CHEVRE, TypeEtat.VIVANT, idUtilisateur);
+        List<Ressource> chevresEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CHEVRE, TypeEtat.OCCUPE, idUtilisateur);
 
-            List<Ressource> carottesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CAROTTE, TypeEtat.VIVANT, idUtilisateur);
-            List<Ressource> blesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.BLE, TypeEtat.VIVANT, idUtilisateur);
-            List<Ressource> fromagesDispo = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.FROMAGE, TypeEtat.VIVANT, idUtilisateur);
+        req.setAttribute("carottesDispo", carottesDispo);
+        req.setAttribute("blesDispo", blesDispo);
+        req.setAttribute("fromagesDispo", fromagesDispo);
+        req.setAttribute("carottesPlantees", carottePlantees);
+        req.setAttribute("blesPlantes", blePlantes);
+        req.setAttribute("fermiers", fermiers);
+        req.setAttribute("chevresNonEnceintes", chevresNonEnceintes);
+        req.setAttribute("chevresEnceintes", chevresEnceintes);
+        req.setAttribute("nourrirChevreBle", Config.nourrirChevreBle);
+        req.setAttribute("nourrirChevreCarotte", Config.nourrirChevreCarotte);
+        req.setAttribute("nourrirFermierChevre", Config.nourrirFermierChevre);
+        req.setAttribute("nourrirFermierCarotte", Config.nourrirFermierCarotte);
+        req.setAttribute("nourrirFermierFromage", Config.nourrirFermierFromage);
+        req.setAttribute("nourrirFermierBle", Config.nourrirFermierBle);
 
-            List<Ressource> carottePlantees = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CAROTTE, TypeEtat.OCCUPE, idUtilisateur);
-            List<Ressource> blePlantes = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.BLE, TypeEtat.OCCUPE, idUtilisateur);
-            List<Ressource> chevresNonEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CHEVRE, TypeEtat.VIVANT, idUtilisateur);
-            List<Ressource> chevresEnceintes = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.CHEVRE, TypeEtat.OCCUPE, idUtilisateur);
+        if (!fermiers.isEmpty()) {
 
-            req.setAttribute("carottesDispo", carottesDispo);
-            req.setAttribute("blesDispo", blesDispo);
-            req.setAttribute("fromagesDispo", fromagesDispo);
-            req.setAttribute("carottesPlantees", carottePlantees);
-            req.setAttribute("blesPlantes", blePlantes);
-            req.setAttribute("fermiers", fermiers);
-            req.setAttribute("chevresNonEnceintes", chevresNonEnceintes);
-            req.setAttribute("chevresEnceintes", chevresEnceintes);
-            req.setAttribute("nourrirChevreBle", Config.nourrirChevreBle);
-            req.setAttribute("nourrirChevreCarotte", Config.nourrirChevreCarotte);
-            req.setAttribute("nourrirFermierChevre", Config.nourrirFermierChevre);
-            req.setAttribute("nourrirFermierCarotte", Config.nourrirFermierCarotte);
-            req.setAttribute("nourrirFermierFromage", Config.nourrirFermierFromage);
-            req.setAttribute("nourrirFermierBle", Config.nourrirFermierBle);
+            req.setAttribute("vieFermier", (fermiers.get(0).getDateLuneCreation() + 30 * Config.cycleMortFermier) - dateService.getLuneJeu());
 
-            if (!fermiers.isEmpty()) {
-
-                req.setAttribute("vieFermier", (fermiers.get(0).getDateLuneCreation()+30*Config.cycleMortFermier) - dateService.getLuneJeu());
-
-            }
-
-            req.setAttribute("tauxEchangeChevre", Config.tauxEchangeChevre);
-            req.setAttribute("tauxEchangeCarotte", Config.tauxEchangeCarotte);
-            req.setAttribute("tauxEchangeBle", Config.tauxEchangeBle);
-
-            List<Utilisateur> classements = classementService.classerTop10();
-            req.setAttribute("classements", classements);
-
-
-            String option = req.getParameter("option");
-            req.setAttribute("option", option);
-            req.getRequestDispatcher("PlateformeDesign.jsp").include(req, resp);
-            resp.sendRedirect("actualisation");
         }
+
+        req.setAttribute("tauxEchangeChevre", Config.tauxEchangeChevre);
+        req.setAttribute("tauxEchangeCarotte", Config.tauxEchangeCarotte);
+        req.setAttribute("tauxEchangeBle", Config.tauxEchangeBle);
+
+        List<Utilisateur> classements = classementService.classerTop10();
+        req.setAttribute("classements", classements);
+
+        String option = req.getParameter("option");
+        req.setAttribute("option", option);
+        req.getRequestDispatcher("PlateformeDesign.jsp").include(req, resp);
+        resp.sendRedirect("actualisation");
 
     }
 

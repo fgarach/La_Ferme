@@ -5,6 +5,7 @@
  */
 package laferme.entity;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import org.springframework.test.context.BootstrapWith;
 
 /**
  *
@@ -31,6 +33,8 @@ public class Utilisateur implements Serializable {
     private String mdp;
     
     private Integer score;
+    
+    private Integer enCoursDeJeu=0;
     
     
     @OneToMany (mappedBy="utilisateur")
@@ -74,6 +78,14 @@ public class Utilisateur implements Serializable {
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public Integer getEnCoursDeJeu() {
+        return enCoursDeJeu;
+    }
+
+    public void setEnCoursDeJeu(Integer enCoursDeJeu) {
+        this.enCoursDeJeu = enCoursDeJeu;
     }
 
 

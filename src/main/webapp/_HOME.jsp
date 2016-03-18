@@ -14,10 +14,13 @@
     </head>
     <body class="body2">
         <h1>Bienvenue sur le site de jeu de La Ferme ! </h1>
-    <c:if test="${sessionScope.email==null}">
-        Veuillez vous inscrire ou vous connecter pour acceder au jeu.
-    </c:if>
-    <c:if test="${sessionScope.email!=null}">
-        <h2><div class="bouton"> <a href="start">Commencer une partie</a></div></h2>
-    </c:if>
+        <c:if test="${sessionScope.email==null}">
+            Veuillez vous inscrire ou vous connecter pour acceder au jeu.
+        </c:if>
+        <c:if test="${sessionScope.email!=null && utilisateur.getEnCoursDeJeu()==0}">
+            <h2><div class="bouton"> <a href="start?start=faux">Commencer une partie</a></div></h2>
+        </c:if>
+        <c:if test="${sessionScope.email!=null && utilisateur.getEnCoursDeJeu()==1}">
+            <h2><div class="bouton"> <a href="start?start=faux">Rejoindre votre partie</a></div></h2>
+        </c:if>
 

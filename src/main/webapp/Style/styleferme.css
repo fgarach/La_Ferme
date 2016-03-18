@@ -125,11 +125,13 @@ min-height:150px;
 max-width:960px;
 margin:auto;
 position:relative;
+color:brown;
 }
 .potager {
 width:240px;
 position:absolute;
 margin-top: 250px;
+
 }
 .enclos {
 margin-left:500px;

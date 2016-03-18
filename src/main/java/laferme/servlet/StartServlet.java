@@ -33,10 +33,18 @@ public class StartServlet extends AutowireServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        String email = req.getSession().getAttribute("email").toString();
-//        Utilisateur u = utilisateurService.findByEmail(email);
-//        initialiserService.initialiser(u);
-        
+        String start = req.getParameter("start");
+        String email = req.getSession().getAttribute("email").toString();
+        Utilisateur u = utilisateurService.findByEmail(email);
+        if (start.equals("vrai")) {
+
+            initialiserService.initialiser(u);
+
+        } else {
+            u.setEnCoursDeJeu(1);
+            utilisateurService.save(u);
+        }
+
         resp.sendRedirect("plateforme");
 
     }

@@ -42,7 +42,7 @@
 
 
 
-            <div style="float: left;display: inline;width:1000px;height:700px">
+            <div style="float: left;display: inline;width:1000px;height:700px;color:brown;">
 
                 <div style="height:230px;">
                     <c:if test="${!empty fermiers}">

@@ -16,8 +16,8 @@
             <span style="float : right;"><div class="bouton"> <a href="deconnexion">Se deconnecter</a></div></span>
         </c:if>
         <c:if test="${sessionScope.email==null}">
-            <span style="float : left;"> <div class="bouton"><a href="login">Se connecter</a></div></span>
-            <span style="float: right; color: white"><div class="bouton"><a href="inscription">inscription</a></div></span>
+            <span style="float : left;"> <div class="bouton"><a href="login"> Se connecter </a></div></span>
+            <span style="float: right; color: white"><div class="bouton"><a href="inscription"> Inscription </a></div></span>
         </c:if> 
 
     </div>
