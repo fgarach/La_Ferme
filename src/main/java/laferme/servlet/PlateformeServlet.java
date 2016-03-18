@@ -19,9 +19,11 @@ import laferme.entity.Utilisateur;
 import laferme.enumeration.TypeEtat;
 import laferme.enumeration.TypeRessource;
 import laferme.service.ActualisationService;
+import laferme.service.ClassementService;
 import laferme.service.DateService;
 import laferme.service.InitialiserPlateformeService;
 import laferme.service.RessourceCrudService;
+import laferme.service.RessourceService;
 import laferme.service.UtilisateurCrudService;
 import laferme.spring.AutowireServlet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,14 +47,20 @@ public class PlateformeServlet extends AutowireServlet {
     @Autowired
     private ActualisationService actualisationService;
 
+    @Autowired
+    RessourceService ressourceService;
+
+    @Autowired
+    ClassementService classementService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getSession().getAttribute("email").toString();
         Utilisateur u = utilisateurCrudService.findByEmail(email);
         Long idUtilisateur = u.getId();
         List<Ressource> fermiers = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.FERMIER, TypeEtat.VIVANT, idUtilisateur);
-        System.out.println("cccc"+u.getId());
-        
+        System.out.println("cccc" + u.getId());
+
         //if (fermiers.isEmpty()) {
         if (false) {
             //interface, vous avez perdu
@@ -98,10 +106,27 @@ public class PlateformeServlet extends AutowireServlet {
             req.setAttribute("tauxEchangeCarotte", Config.tauxEchangeCarotte);
             req.setAttribute("tauxEchangeBle", Config.tauxEchangeBle);
 
+//            List<Utilisateur> classements = classementService.classerTop10();
+//            req.setAttribute("classements", classements);
+
+
             String option = req.getParameter("option");
+            req.setAttribute("option", option);
             req.getRequestDispatcher("PlateformeDesign.jsp").include(req, resp);
             resp.sendRedirect("actualisation");
         }
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String email = (String) req.getSession().getAttribute("email");
+        Utilisateur u = utilisateurCrudService.findByEmail(email);
+        String ressourcePossedees = req.getParameter("ressechange");
+        String ressourceVoulues = req.getParameter("resscontre");
+        ressourceService.echange(ressourcePossedees, ressourceVoulues, u);
+        resp.sendRedirect("plateforme");
 
     }
 }

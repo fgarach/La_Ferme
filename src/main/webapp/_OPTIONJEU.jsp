@@ -7,15 +7,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="fonctionjeu">
-    <span class="bouton"><a class="bouton" href="echange"> echanger      </a></span>
-    <span class="bouton"><a class="bouton" href="classement"> voir classement </a></span>
+    
+    Echange : 
 
-    <c:if test="${option == 'echange'}">
+ 
         <br>
         Choisissez ce que vous souhaitez echanger : 
         <br>
         <c:if test="${chevresNonEnceintes.size()>=tauxEchangeChevre || CarottesDispo.size()>=tauxEchangeCarotte || blesDispo.size()>=tauxEchangeBle}">
-            <form method="post" action="echange">
+            <form method="post" action="plateforme">
                 Echange :
                 <c:if test="${chevresNonEnceintes.size()>=tauxEchangeChevre}">
                     <input type="radio" name="ressechange" value="chevre" checked> ${tauxEchangeChevre} chevre
@@ -26,7 +26,7 @@
                 <c:if test="${blesDispo.size()>=tauxEchangeBle}">
                     <input type="radio" name="ressechange" value="ble"checked> ${tauxEchangeBle} bles
                 </c:if>
-                    <br>
+                <br>
                 Contre :
                 <input type="radio" name="resscontre" value="chevre"checked> ${tauxEchangeChevre} chevre
                 <input type="radio" name="resscontre" value="carotte"> ${tauxEchangeCarotte} carottes
@@ -35,8 +35,18 @@
             </form>
         </c:if>
 
-        <c:if test="${option == 'classement'}">
-            xxxxxxxxxxxxxxx
-        </c:if>
-    </c:if>
+
+<!--    Classement : 
+    
+        <table>
+            <tr>
+                <td>classement</td><td>Utilisateur</td><td>score</td>
+            </tr>
+            <tr>
+                <c:forEach items="${classements}" var="util" varStatus="loop" >
+                    <td>loop.index</td> <td>util.email</td> <td>util.score</td>
+                </c:forEach>
+            </tr>
+        </table>-->
+
 </div>

@@ -15,7 +15,7 @@
             var task = function () {
                 document.location.reload();
             }
-            window.setTimeout(task, 1000);
+            window.setTimeout(task, 10000);
         </script>
 
 
@@ -165,6 +165,7 @@
                 </div>
             </div>
         </div>
+
         <c:import url="_FOOTER.jsp"/>
 
     </body>

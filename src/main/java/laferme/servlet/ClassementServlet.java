@@ -20,6 +20,7 @@ import laferme.enumeration.TypeEtat;
 import laferme.enumeration.TypeRessource;
 import laferme.service.ClassementService;
 import laferme.service.RessourceCrudService;
+import laferme.spring.AutowireServlet;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -27,7 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author admin
  */
 @WebServlet(name = "ClassementServlet", urlPatterns = {"/classement"})
-public class ClassementServlet extends HttpServlet {
+public class ClassementServlet  extends AutowireServlet{
 
     @Autowired
     RessourceCrudService ressourceCrudService;
@@ -39,8 +40,9 @@ public class ClassementServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String option = "classement";
         req.setAttribute("option", option);
-        List <Utilisateur> classements = classementService.classer();
-        req.setAttribute("classement", classements);
+
+        List <Utilisateur> classements = classementService.classerTop10();
+        req.setAttribute("classements", classements);
                 
         req.getRequestDispatcher("plateforme").forward(req, resp);
     }

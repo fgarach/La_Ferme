@@ -5,6 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<div class="pied">Copyright Fanny Garach</div>
+<div class="pied">Copyright Fanny Garach & Romain Dao </div>
 </body>
 </html>
