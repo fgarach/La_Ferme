@@ -25,10 +25,7 @@ public class InscriptionService {
 
         if(utilisateurCrudService.findByEmail(u.getEmail())!= null){
             throw new UtilisateurDejaInscrit();
-        }
-        else{
-            utilisateurCrudService.save(u);
-        }    
+        }  
         
     }
     

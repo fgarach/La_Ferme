@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import laferme.entity.Utilisateur;
 import laferme.exception.UtilisateurDejaInscrit;
 import laferme.service.ConnexionService;
+import laferme.service.InitialiserPlateformeService;
 import laferme.service.InscriptionService;
+import laferme.service.UtilisateurCrudService;
 import laferme.spring.AutowireServlet;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,9 +30,15 @@ public class InscriptionServlet extends AutowireServlet {
 
     @Autowired
     InscriptionService inscriptionService;
-    
+
     @Autowired
     ConnexionService connexionService;
+
+    @Autowired
+    private InitialiserPlateformeService initialiserService;
+
+    @Autowired
+    private UtilisateurCrudService utilisateurService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -48,13 +56,15 @@ public class InscriptionServlet extends AutowireServlet {
         u.setMdp(req.getParameter("mdp"));
         try {
             inscriptionService.inscriptionUtilisateur(u);
+            utilisateurService.save(u);
             req.setAttribute("email", req.getParameter("email"));
             req.setAttribute("mdp", req.getParameter("mdp"));
-            resp.sendRedirect("login");
+            initialiserService.initialiser(u);
+            req.getRequestDispatcher("login").forward(req, resp);
         } catch (UtilisateurDejaInscrit ex) {
             String information = "Vous êtes déjà inscrit";
             req.setAttribute("info", information);
-            req.getRequestDispatcher("login").forward(req, resp);
+            req.getRequestDispatcher("inscription").forward(req, resp);
             return;
         }
     }

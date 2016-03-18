@@ -24,6 +24,6 @@
         <c:if test="${info!=null}">
             <div>   ${info}</div>
         </c:if>
-        <input type="submit"/>
+        <br><br><input type="submit"/>
     </form>
 </div>

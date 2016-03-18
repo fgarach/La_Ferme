@@ -29,8 +29,13 @@
                 <img src=Style/Image/ferme/carotte.png alt="Carotte" border=3 align=middle> x ${carottesDispo.size()}<div class="boutonplanter"><a href="planter?type=carotte">Planter</a></div><br>
                 <img src=Style/Image/ferme/ble.png alt="Ble" border=3 align=middle> x ${blesDispo.size()}<span><div class="boutonplanter"><a href="planter?type=ble">Planter</a></div></span><br><br>
                 <img src=Style/Image/ferme/fromage.png alt="Fromage" border=3 align=middle> x ${fromagesDispo.size()}<br><br>
-                Lune = ${lune}<br><br>
-                Vie du fermier : ${vieFermier}
+                <c:if test="${!empty fermiers}">
+                    Mise a mort dans : ${vieFermier} lunes
+                </c:if>
+                <c:if test="${empty fermiers}">
+                    Votre fermier est mort !
+                </c:if>
+
                 <br><br>
                 <div class="bouton"><a href="actualisation?id=${sessionScope.login}">Actualiser</a></div>
             </div>

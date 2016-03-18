@@ -59,7 +59,7 @@ public class PlateformeServlet extends AutowireServlet {
         Utilisateur u = utilisateurCrudService.findByEmail(email);
         Long idUtilisateur = u.getId();
         List<Ressource> fermiers = ressourceCrudService.findByTypeRessourceAndTypeEtatAndUtilisateurId(TypeRessource.FERMIER, TypeEtat.VIVANT, idUtilisateur);
-        System.out.println("cccc" + u.getId());
+
 
         //if (fermiers.isEmpty()) {
         if (false) {
@@ -90,18 +90,12 @@ public class PlateformeServlet extends AutowireServlet {
             req.setAttribute("nourrirFermierFromage", Config.nourrirFermierFromage);
             req.setAttribute("nourrirFermierBle", Config.nourrirFermierBle);
 
-            req.setAttribute("lune", dateService.getLuneJeu());
             if (!fermiers.isEmpty()) {
 
-                req.setAttribute("vieFermier", (fermiers.get(0).getDateLuneCreation() + 1 * 30) - dateService.getLuneJeu());
+                req.setAttribute("vieFermier", (fermiers.get(0).getDateLuneCreation()+30*Config.cycleMortFermier) - dateService.getLuneJeu());
 
             }
 
-            //req.getRequestDispatcher("_CSS.jsp").include(req, resp);
-            //req.getRequestDispatcher("_TITRE.jsp").include(req, resp);
-            //req.getRequestDispatcher("_HEADER.jsp").include(req, resp);
-            //req.getRequestDispatcher("_OPTIONJEU.jsp").include(req, resp);
-            //req.getRequestDispatcher("_FOOTER.jsp").include(req, resp);
             req.setAttribute("tauxEchangeChevre", Config.tauxEchangeChevre);
             req.setAttribute("tauxEchangeCarotte", Config.tauxEchangeCarotte);
             req.setAttribute("tauxEchangeBle", Config.tauxEchangeBle);

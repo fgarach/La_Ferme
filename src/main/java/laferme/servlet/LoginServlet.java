@@ -39,11 +39,11 @@ public class LoginServlet extends AutowireServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         String email = req.getParameter("email");
         String mdp = req.getParameter("mdp");
 
         try {
+            
             connexionService.connexion(email, mdp);
             req.getSession().setAttribute("email", email);
             resp.sendRedirect("home");
